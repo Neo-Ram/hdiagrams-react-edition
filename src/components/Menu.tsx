@@ -1,14 +1,39 @@
+import Card from "./Card";
 const Menu = () => {
   return (
-    <div className="menu-container">
-      <h1>Menú Principal</h1>
-      <nav>
-        <ul>
-          <li>Opción 1</li>
-          <li>Opción 2</li>
-          <li>Opción 3</li>
-        </ul>
-      </nav>
+    <div className="menu-mitad">
+      <h2>Seleccione una opción</h2>
+      <div className="cartitas">
+        <Card
+          titulo="Opción 1"
+          parrafo="Descripción 1"
+          children="Crear"
+          imagen=""
+        />
+        <Card
+          titulo="Opción 2"
+          parrafo="Descripción 2"
+          children="Crear"
+          imagen=""
+        />
+        <Card
+          titulo="Opción 3"
+          parrafo="Descripción 3"
+          children="Crear"
+          imagen=""
+        />
+      </div>
+      <div className="menu-mitad">
+        <h1>Diagramas ya creados</h1>
+        <div>
+          <Card
+            titulo="Opción 1"
+            parrafo="Descripción 1"
+            children="Crear"
+            imagen=""
+          />
+        </div>
+      </div>
     </div>
   );
 };
