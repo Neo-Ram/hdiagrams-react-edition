@@ -1,0 +1,13 @@
+.menu-mitad {
+  padding: 20px;
+}
+.menu-mitad h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.cartitas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}

@@ -1,7 +1,8 @@
-import Button1 from "./Inputs";
+import Button1, { Button2 } from "./Inputs";
 import { InputText } from "./Inputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,11 +19,12 @@ const Login = () => {
 
   return (
     <div className="login">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form">
+        <img src="../../public/UasLogo.png" alt="" />
         <InputText
           type="email"
           id="email"
-          placeholder="Email"
+          placeholder="Correo Electronico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -36,6 +38,7 @@ const Login = () => {
           required
         />
         <Button1>Iniciar Sesión</Button1>
+        <Button2>Registrarse</Button2>
       </form>
     </div>
   );

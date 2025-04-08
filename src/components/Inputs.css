@@ -1,0 +1,27 @@
+.button1 {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 90%;
+  max-width: 300px;
+  transition: background-color 0.3s ease;
+}
+
+.button1:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para los inputs */
+input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
