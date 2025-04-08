@@ -38,7 +38,7 @@ const Login = () => {
           required
         />
         <Button1>Iniciar Sesión</Button1>
-        <Button2>Registrarse</Button2>
+        <Button2 onClick={() => navigate("/register")}>Registrarse</Button2>
       </form>
     </div>
   );

@@ -11,6 +11,7 @@ type InputTextProps = InputHTMLAttributes<HTMLInputElement>;
 
 type Button2Props = {
   children: ReactNode;
+  onClick?: () => void;
 };
 
 const Button1 = (props: ButtonProps) => {
@@ -24,9 +25,13 @@ const Button1 = (props: ButtonProps) => {
 export default Button1;
 
 export const Button2 = (props: Button2Props) => {
-  const { children } = props;
+  const { children, onClick } = props;
   return (
-    <button type="button" className="btn btn-outline-secondary ">
+    <button
+      type="button"
+      className="btn btn-outline-secondary "
+      onClick={onClick}
+    >
       {children}
     </button>
   );

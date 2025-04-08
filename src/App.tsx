@@ -6,14 +6,16 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Menu from "./components/Menu";
+import Register from "./Register";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
