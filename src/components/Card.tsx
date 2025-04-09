@@ -21,7 +21,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <div className="card">
-      <img src={imagen} alt="" />
+      {imagen && <img src={imagen} alt={titulo} />}
       <h1>{titulo}</h1>
       <p>{parrafo}</p>
       <Button1 id={id} onClick={onClick}>

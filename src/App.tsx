@@ -7,6 +7,7 @@ import {
 import Login from "./components/Login";
 import Menu from "./components/Menu";
 import Register from "./components/Register";
+import DSecuencia from "./components/DSecuencia";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/DSecuencia" element={<DSecuencia />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );

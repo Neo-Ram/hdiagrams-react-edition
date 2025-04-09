@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.5",
+    "gojs": "^3.0.21",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.5.0"
+    "react-router-dom": "^7.5.0",
+    "reactflow": "^11.11.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

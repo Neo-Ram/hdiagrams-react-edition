@@ -1,12 +1,13 @@
 import Card from "./Card";
 import "./Menu.css";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
-  // Función para manejar el clic en el botón
-  const handleButtonClick = (id: string) => {
-    if (id === "opcion1-btn") {
-      alert("Se está trabajando en esta funcionalidad");
-    }
+  const navigate = useNavigate();
+
+  const handleNavigateToDSecuencia = () => {
+    console.log("Navegando a /DSecuencia");
+    navigate("/DSecuencia");
   };
 
   return (
@@ -14,12 +15,12 @@ const Menu = () => {
       <h2>Seleccione una opción</h2>
       <div className="cartitas">
         <Card
-          titulo="Opción 1"
-          parrafo="Descripción 1"
+          titulo="Diagrama de Secuencia"
+          parrafo="Crear un diagrama de secuencia UML"
           children="Crear"
           imagen=""
           id="opcion1-btn"
-          onClick={() => handleButtonClick("opcion1-btn")}
+          onClick={handleNavigateToDSecuencia}
         />
         <Card
           titulo="Opción 2"
