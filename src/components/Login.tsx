@@ -1,5 +1,4 @@
-import Button1, { Button2 } from "./Inputs";
-import { InputText } from "./Inputs";
+import * as UI from "./Inputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -18,27 +17,42 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
+    <div className="fondo">
       <form onSubmit={handleSubmit} className="login-form">
-        <img src="../../public/UasLogo.png" alt="" />
-        <InputText
-          type="email"
-          id="email"
-          placeholder="Correo Electronico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <InputText
-          type="password"
-          id="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button1>Iniciar Sesión</Button1>
-        <Button2 onClick={() => navigate("/register")}>Registrarse</Button2>
+        <div className="form-imagen">
+          <img src="/UasLogo.png" alt="" />
+        </div>
+        <div className="yamecanse">
+          <UI.H2>Iniciar Sesión</UI.H2>
+          <UI.Label>Correo Electronico</UI.Label>
+          <UI.InputText
+            type="email"
+            id="email"
+            placeholder="reprobados@uas"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <UI.Label>Contraseña</UI.Label>
+          <UI.InputText
+            type="password"
+            id="password"
+            placeholder="**************"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <div className="contraseña">
+            <UI.Button3>Recuperar contraseña</UI.Button3>
+          </div>
+        </div>
+
+        <div className="login-buton">
+          <UI.Button1>Iniciar Sesión</UI.Button1>
+          <UI.Button3 onClick={() => navigate("/register")}>
+            Registrarse
+          </UI.Button3>
+        </div>
       </form>
     </div>
   );

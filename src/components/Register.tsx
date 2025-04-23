@@ -1,5 +1,4 @@
-import Button1, { Button2 } from "./Inputs";
-import { InputText } from "./Inputs";
+import * as UI from "./Inputs";
 import "./Login.css";
 
 const Register = () => {
@@ -7,32 +6,32 @@ const Register = () => {
     <div className="login">
       <form className="login-form">
         <img src="../../public/UasLogo.png" alt="" />
-        <InputText
+        <UI.InputText
           type="text"
           id="name"
           placeholder="Nombre de Usuario"
           required
         />
-        <InputText
+        <UI.InputText
           type="email"
           id="email"
           placeholder="Correo Electronico"
           required
         />
-        <InputText
+        <UI.InputText
           type="password"
           id="password"
           placeholder="Contraseña"
           required
         />
-        <InputText
+        <UI.InputText
           type="password"
           id="confirmPassword"
           placeholder="Confirmar Contraseña"
           required
         />
-        <Button1>Registrarse</Button1>
-        <Button2>Iniciar sesion</Button2>
+        <UI.Button1>Registrarse</UI.Button1>
+        <UI.Button2>Iniciar sesion</UI.Button2>
       </form>
     </div>
   );

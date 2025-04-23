@@ -1,27 +1,95 @@
+:root {
+  --morado: #798dff;
+  --moradoSec: #4e68ff;
+  --textoPri: #1f1f30;
+  --textoSec: #565674;
+  --textoBla: #fafbfd;
+  --gris: #9d9db0;
+}
 .button1 {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--morado);
+  color: var(--textoBla);
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 8px 10px;
+  border-radius: 20px;
   cursor: pointer;
   font-size: 16px;
-  width: 90%;
-  max-width: 300px;
-  transition: background-color 0.3s ease;
+  width: 35%;
+  min-width: 100px;
+  max-width: 200px;
+  transition: background-color 0.5s ease, transform 0.1s ease;
+  margin: 5px;
 }
 
 .button1:hover {
-  background-color: #0056b3;
+  background-color: var(--moradoSec);
+  color: var(--textoBla);
+}
+
+.button1:active {
+  transform: scale(0.95);
+}
+.button2 {
+  background-color: var(--textoBla);
+  border: solid 1px var(--morado);
+  color: var(--morado);
+  border-radius: 20px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 35%;
+  max-width: 200px;
+  transition: background-color 0.5s ease, transform 0.1s ease;
+  margin: 5px;
+}
+.button2:hover {
+  background-color: var(--moradoSec);
+  color: var(--textoBla);
+}
+.button2:active {
+  transform: scale(0.95);
+}
+.button3 {
+  background: none;
+  border: none;
+  color: var(--textoSec);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  width: 110px;
+}
+
+.button3-text {
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  line-height: 1; /* para que esté bien pegado al texto */
+}
+
+.button3:hover .button3-text {
+  border-color: var(--textoSec);
 }
 
 /* Estilos para los inputs */
-input {
-  width: 100%;
-  max-width: 300px;
+.form-control {
+  width: 90%;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid var(--texto);
+  border-radius: 8px;
   font-size: 16px;
   margin-bottom: 10px;
+  background-color: var(--inputs);
+}
+.label {
+  color: var(--textoSec);
+}
+.h1 {
+  color: var(--textoPri);
+}
+.h2 {
+  color: var(--textoPri);
+}
+.p {
+  color: var(--textoPri);
 }

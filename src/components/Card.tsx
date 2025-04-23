@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Button1 from "./Inputs";
+import * as UI from "./Inputs";
 import "./Card.css";
 
 type CardProps = {
@@ -24,9 +24,9 @@ const Card = ({
       {imagen && <img src={imagen} alt={titulo} />}
       <h1>{titulo}</h1>
       <p>{parrafo}</p>
-      <Button1 id={id} onClick={onClick}>
+      <UI.Button1 id={id} onClick={onClick}>
         {children}
-      </Button1>
+      </UI.Button1>
     </div>
   );
 };
