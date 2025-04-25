@@ -1,3 +1,16 @@
-body {
-  margin: 0;
+:root {
+  --morado: #2b2b2b;
+  --moradoSec: #0a0a0a;
+  --textoPri: #1f1f30;
+  --textoSec: #565674;
+  --textoBla: #fafbfd;
+  --gris: #9d9db0;
+  --Bloques: #fff;
+  --fondo: #f9f9fb;
+  --textonegro: black;
+}
+
+* {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }

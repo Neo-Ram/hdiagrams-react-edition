@@ -20,7 +20,7 @@ const Card = ({
   onClick,
 }: CardProps) => {
   return (
-    <div className="card">
+    <div className="micard">
       {imagen && <img src={imagen} alt={titulo} />}
       <h1>{titulo}</h1>
       <p>{parrafo}</p>

@@ -1,6 +1,8 @@
 import Card from "./Card";
 import "./Menu.css";
 import { useNavigate } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
+import * as UI from "./Inputs";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -11,45 +13,100 @@ const Menu = () => {
   };
 
   return (
-    <div className="menu-mitad">
-      <h2>Seleccione una opción</h2>
-      <div className="cartitas">
-        <Card
-          titulo="Diagrama de Secuencia"
-          parrafo="Crear un diagrama de secuencia UML"
-          children="Crear"
-          imagen=""
-          id="opcion1-btn"
-          onClick={handleNavigateToDSecuencia}
-        />
-        <Card
-          titulo="Opción 2"
-          parrafo="Descripción 2"
-          children="Crear"
-          imagen=""
-          id="opcion2-btn"
-        />
-        <Card
-          titulo="Opción 3"
-          parrafo="Descripción 3"
-          children="Crear"
-          imagen=""
-          id="opcion3-btn"
-        />
+    <>
+      <div className="carrusel">
+        <Carousel>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="/Diagramas.png"
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>No me convence Nomar que opinas?</h3>
+              <p>Inserte texto</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="/Diagramas2.jpg"
+              alt="Second slide"
+            />
+            <Carousel.Caption>
+              <h3>No me convence nomar que opinas?</h3>
+              <p>Texto de la segunda diapositiva.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="/Diagramas3.jpg"
+              alt="Third slide"
+            />
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>Texto de la tercera diapositiva.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
       </div>
       <div className="menu-mitad">
-        <h2>Mis diagramas</h2>
+        <UI.H2>Seleccione una opcion</UI.H2>
         <div className="cartitas">
           <Card
-            titulo="Opción 1"
-            parrafo="Descripción 1"
+            titulo="Diagrama de Secuencia"
+            parrafo="Crear un diagrama de secuencia UML"
             children="Crear"
-            imagen=""
-            id="mis-diagramas-btn"
+            imagen="/redp.jpg"
+            id="opcion1-btn"
+            onClick={handleNavigateToDSecuencia}
+          />
+          <Card
+            titulo="Diagrama de clases"
+            parrafo="Crea un Diagrama de clases UML"
+            children="Crear"
+            imagen="/public/grayp.jpg"
+            id="opcion2-btn"
+          />
+          <Card
+            titulo="Diagrama de casos de uso"
+            parrafo="Crea un diagrama de casos de uso"
+            children="Crear"
+            imagen="/bluep.jpg"
+            id="opcion3-btn"
+          />
+          <Card
+            titulo="Diagrama de componentes???"
+            parrafo="Crear un diagrama de componentes? ortega?"
+            children="Crear"
+            imagen="/whitep.jpg"
+            id="opcion1-btn"
+            onClick={handleNavigateToDSecuencia}
+          />
+          <Card
+            titulo="Diagrama de paquetes"
+            parrafo="Crear un diagrama de paquetes"
+            children="Crear"
+            imagen="/yelloup.jpg"
+            id="opcion1-btn"
+            onClick={handleNavigateToDSecuencia}
           />
         </div>
+        <div className="menu-mitad2">
+          <UI.H2>Mis Diagramas</UI.H2>
+          <div className="cartitas">
+            <Card
+              titulo="Opción 1"
+              parrafo="Descripción 1"
+              children="Crear"
+              imagen=""
+              id="mis-diagramas-btn"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

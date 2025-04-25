@@ -1,22 +1,13 @@
-:root {
-  --morado: #798dff;
-  --moradoSec: #4e68ff;
-  --textoPri: #1f1f30;
-  --textoSec: #565674;
-  --textoBla: #fafbfd;
-  --gris: #9d9db0;
-}
 .button1 {
   background-color: var(--morado);
   color: var(--textoBla);
   border: none;
-  padding: 8px 10px;
-  border-radius: 20px;
+  padding: 6px 8px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  width: 35%;
+  width: 100%;
   min-width: 100px;
-  max-width: 200px;
   transition: background-color 0.5s ease, transform 0.1s ease;
   margin: 5px;
 }
@@ -31,19 +22,19 @@
 }
 .button2 {
   background-color: var(--textoBla);
-  border: solid 1px var(--morado);
+  border: solid 1px var(--gris);
   color: var(--morado);
-  border-radius: 20px;
-  padding: 7px 10px;
+  border-radius: 8px;
+  padding: 5px 8px;
   cursor: pointer;
   font-size: 16px;
-  width: 35%;
-  max-width: 200px;
+  width: 100%;
+  min-width: 100px;
   transition: background-color 0.5s ease, transform 0.1s ease;
   margin: 5px;
 }
 .button2:hover {
-  background-color: var(--moradoSec);
+  background-color: var(--morado);
   color: var(--textoBla);
 }
 .button2:active {
@@ -57,14 +48,15 @@
   font-size: 16px;
   padding: 0;
   margin: 0;
-  width: 110px;
+  width: 100%;
+  min-width: 100px;
 }
 
 .button3-text {
   border-bottom: 2px solid transparent;
   transition: border-color 0.3s ease, color 0.3s ease;
   display: inline-block;
-  line-height: 1; /* para que esté bien pegado al texto */
+  line-height: 1;
 }
 
 .button3:hover .button3-text {

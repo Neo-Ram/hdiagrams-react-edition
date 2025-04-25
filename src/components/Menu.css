@@ -1,13 +1,41 @@
 .menu-mitad {
-  padding: 20px;
+  padding: 30px;
+  background-color: var(--fondo);
+  display: flex;
+  flex-direction: column;
 }
 .menu-mitad h2 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 8px;
 }
+.carrusel {
+  padding: 5px;
+}
+.carrusel img {
+  max-height: 400px; /* ajusta este valor a lo que necesites */
+  object-fit: cover; /* o cover si quieres que se recorte */
+  border-radius: 10px;
+}
+
 .cartitas {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  justify-content: left;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.menu-mitad2 {
+  display: flex;
+  flex-direction: column;
+}
+.menu-mitad2 h2 {
+  text-align: left;
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 8px;
 }

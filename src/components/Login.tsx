@@ -47,12 +47,10 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="login-buton">
-          <UI.Button1>Iniciar Sesión</UI.Button1>
-          <UI.Button3 onClick={() => navigate("/register")}>
-            Registrarse
-          </UI.Button3>
-        </div>
+        <UI.Button1>Iniciar Sesión</UI.Button1>
+        <UI.Button2 onClick={() => navigate("/register")}>
+          Registrarse
+        </UI.Button2>
       </form>
     </div>
   );
