@@ -9,7 +9,6 @@
   width: 100%;
   min-width: 100px;
   transition: background-color 0.5s ease, transform 0.1s ease;
-  margin: 5px;
 }
 
 .button1:hover {

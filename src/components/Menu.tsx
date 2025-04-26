@@ -3,10 +3,14 @@ import "./Menu.css";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import * as UI from "./Inputs";
+import { useState } from "react";
+import Spinner from "./Spinner"; // Asegúrate de tener el spinner creado
 
 const Menu = () => {
+  const [loading, setLoading] = useState(true); // Inicialmente está cargando
   const navigate = useNavigate();
 
+  // Manejo de navegación
   const handleNavigateToDSecuencia = () => {
     console.log("Navegando a /DSecuencia");
     navigate("/DSecuencia");
@@ -27,8 +31,15 @@ const Menu = () => {
     console.log("Navegando a /DPaquetes");
     navigate("/DPaquetes");
   };
+
+  // Función para manejar el evento onLoad de las imágenes del carrusel
+  const handleImageLoad = () => {
+    setLoading(false); // Cuando todas las imágenes se hayan cargado, oculta el spinner
+  };
+
   return (
     <>
+      {loading && <Spinner />} {/* Muestra el spinner si está cargando */}
       <div className="carrusel">
         <Carousel>
           <Carousel.Item interval={2000}>
@@ -36,6 +47,7 @@ const Menu = () => {
               className="d-block w-100"
               src="/Diagramas.png"
               alt="First slide"
+              onLoad={handleImageLoad} // Llama a la función cuando la imagen se cargue
             />
             <Carousel.Caption>
               <h3>No me convence Nomar que opinas?</h3>
@@ -47,6 +59,7 @@ const Menu = () => {
               className="d-block w-100"
               src="/Diagramas2.jpg"
               alt="Second slide"
+              onLoad={handleImageLoad}
             />
             <Carousel.Caption>
               <h3>No me convence nomar que opinas?</h3>
@@ -58,6 +71,7 @@ const Menu = () => {
               className="d-block w-100"
               src="/Diagramas3.jpg"
               alt="Third slide"
+              onLoad={handleImageLoad}
             />
             <Carousel.Caption>
               <h3>Third slide label</h3>
@@ -71,7 +85,7 @@ const Menu = () => {
         <div className="cartitas">
           <Card
             titulo="Diagrama de Secuencia"
-            parrafo="Crear un diagrama de secuencia UML"
+            parrafo="Muestra cómo los objetos interactúan en el tiempo a través de mensajes ordenados."
             children="Crear"
             imagen="/redp.jpg"
             id="opcion1-btn"
@@ -79,7 +93,7 @@ const Menu = () => {
           />
           <Card
             titulo="Diagrama de clases"
-            parrafo="Crea un Diagrama de clases UML"
+            parrafo="Representa las clases del sistema, sus atributos, métodos y relaciones entre ellas."
             children="Crear"
             imagen="/grayp.jpg"
             id="opcion2-btn"
@@ -87,7 +101,7 @@ const Menu = () => {
           />
           <Card
             titulo="Diagrama de casos de uso"
-            parrafo="Crea un diagrama de casos de uso"
+            parrafo="Describe las funcionalidades del sistema desde el punto de vista del usuario."
             children="Crear"
             imagen="/bluep.jpg"
             id="opcion3-btn"
@@ -95,7 +109,7 @@ const Menu = () => {
           />
           <Card
             titulo="Diagrama de componentes???"
-            parrafo="Crear un diagrama de componentes? ortega?"
+            parrafo="Muestra cómo se organizan e interconectan los componentes del software."
             children="Crear"
             imagen="/whitep.jpg"
             id="opcion1-btn"
@@ -103,13 +117,14 @@ const Menu = () => {
           />
           <Card
             titulo="Diagrama de paquetes"
-            parrafo="Crear un diagrama de paquetes"
+            parrafo="Organiza y agrupa clases o componentes en paquetes lógicos para simplificar la estructura."
             children="Crear"
             imagen="/yelloup.jpg"
             id="opcion1-btn"
             onClick={handleNavigateToDPaquetes}
           />
         </div>
+
         <div className="menu-mitad2">
           <UI.H2>Mis Diagramas</UI.H2>
           <div className="cartitas">
