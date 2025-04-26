@@ -8,6 +8,10 @@ import Login from "./components/Login";
 import Menu from "./components/Menu";
 import Register from "./components/Register";
 import DSecuencia from "./components/DSecuencia";
+import DClases from "./components/DClases";
+import DCU from "./DCU";
+import DComponetes from "./components/DComponentes";
+import DPaquetes from "./DPaquetes";
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/DSecuencia" element={<DSecuencia />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/DClases" element={<DClases />} />
+        <Route path="/DCU" element={<DCU />} />
+        <Route path="/DComponentes" element={<DComponetes />} />
+        <Route path="/DPaquetes" element={<DPaquetes />} />
       </Routes>
     </Router>
   );

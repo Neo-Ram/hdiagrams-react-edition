@@ -11,7 +11,22 @@ const Menu = () => {
     console.log("Navegando a /DSecuencia");
     navigate("/DSecuencia");
   };
-
+  const handleNavigateToDClases = () => {
+    console.log("Navegando a /DClases");
+    navigate("/DClases");
+  };
+  const handleNavigateToDCU = () => {
+    console.log("Navegando a /DCU");
+    navigate("/DCU");
+  };
+  const handleNavigateToDComponentes = () => {
+    console.log("Navegando a /DComponentes");
+    navigate("/DComponentes");
+  };
+  const handleNavigateToDPaquetes = () => {
+    console.log("Navegando a /DPaquetes");
+    navigate("/DPaquetes");
+  };
   return (
     <>
       <div className="carrusel">
@@ -66,8 +81,9 @@ const Menu = () => {
             titulo="Diagrama de clases"
             parrafo="Crea un Diagrama de clases UML"
             children="Crear"
-            imagen="/public/grayp.jpg"
+            imagen="/grayp.jpg"
             id="opcion2-btn"
+            onClick={handleNavigateToDClases}
           />
           <Card
             titulo="Diagrama de casos de uso"
@@ -75,6 +91,7 @@ const Menu = () => {
             children="Crear"
             imagen="/bluep.jpg"
             id="opcion3-btn"
+            onClick={handleNavigateToDCU}
           />
           <Card
             titulo="Diagrama de componentes???"
@@ -82,7 +99,7 @@ const Menu = () => {
             children="Crear"
             imagen="/whitep.jpg"
             id="opcion1-btn"
-            onClick={handleNavigateToDSecuencia}
+            onClick={handleNavigateToDComponentes}
           />
           <Card
             titulo="Diagrama de paquetes"
@@ -90,7 +107,7 @@ const Menu = () => {
             children="Crear"
             imagen="/yelloup.jpg"
             id="opcion1-btn"
-            onClick={handleNavigateToDSecuencia}
+            onClick={handleNavigateToDPaquetes}
           />
         </div>
         <div className="menu-mitad2">
