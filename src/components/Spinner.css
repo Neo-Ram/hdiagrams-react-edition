@@ -9,7 +9,7 @@
   width: 60px;
   height: 60px;
   border: 6px solid rgba(179, 179, 179, 0.2);
-  border-top-color: var(--moradoSec);
+  border-top-color: var(--morado);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
