@@ -1,11 +1,27 @@
 import * as UI from "./Inputs";
 import "./Login.css";
+import { useState } from "react";
+import Spinner from "./Spinner";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false); // Estado de carga, inicialmente falso
+
+  // Simulación de un proceso de registro
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true); // Empieza el proceso de carga
+    // Aquí iría la lógica real de registro
+    setTimeout(() => {
+      setLoading(false); // Finaliza la carga después de un tiempo (simulando un proceso)
+      console.log("Registro completado");
+    }, 2000); // Simula un retraso de 2 segundos
+  };
+
   return (
     <div className="fondo">
+      {loading && <Spinner />} {/* Muestra el spinner si está cargando */}
       <div className="login">
-        <form className="login-form2">
+        <form onSubmit={handleRegister} className="login-form2">
           <div className="form-imagen">
             <img src="/UasLogo.png" alt="" />
           </div>
