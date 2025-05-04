@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as go from "gojs";
 import { useNavigate } from "react-router-dom";
 import "./DPaquetes.css";
@@ -123,7 +123,7 @@ const DPaquetes = () => {
         resizeObjectName: "SHAPE",
         minSize: new go.Size(180, 120),
         cursor: "pointer",
-        click: (e, obj) => {
+        click: (_e, obj) => {
           if (obj && obj.part && obj.part.data) {
             setSelectedPackageKey(obj.part.data.key);
           }
