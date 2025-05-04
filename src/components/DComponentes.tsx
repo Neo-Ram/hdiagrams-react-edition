@@ -182,7 +182,7 @@ const DComponentes = () => {
         resizable: true,
         resizeObjectName: "SHAPE",
         minSize: new go.Size(180, 120),
-        click: (e, obj) => {
+        click: (_, obj) => {
           if (obj && obj.part && obj.part.data) {
             setSelectedComponentKey(obj.part.data.key);
           }
@@ -304,7 +304,7 @@ const DComponentes = () => {
         diagramRef2.current = null;
       }
     };
-  }, []); // Solo una vez
+  }, [linkType]); // Agregamos linkType como dependencia
 
   // Actualizar el tipo de enlace cuando cambie linkType
   useEffect(() => {
