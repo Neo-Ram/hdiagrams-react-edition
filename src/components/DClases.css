@@ -1,0 +1,518 @@
+.App {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.class-node {
+  padding: 10px;
+  border-radius: 3px;
+  min-width: 200px;
+  max-width: 400px;
+  width: auto;
+  font-size: 12px;
+  color: #222;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #1a192b;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-height: 100px;
+}
+
+.class-header {
+  padding: 8px;
+  border-bottom: 1px solid #1a192b;
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+
+.class-attributes,
+.class-methods {
+  padding: 8px;
+  text-align: left;
+  min-height: 30px;
+}
+
+.class-attributes {
+  border-bottom: 1px solid #1a192b;
+  background-color: #ffffff;
+}
+
+.class-methods {
+  background-color: #ffffff;
+}
+
+.class-node input {
+  width: 90%;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 12px;
+  margin: 2px 0;
+}
+
+.class-node input:focus {
+  outline: none;
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+.add-item {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #e0e0e0;
+}
+
+.add-item input {
+  width: calc(100% - 20px);
+  margin: 0 10px;
+  padding: 4px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #666;
+}
+
+.add-item input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.add-class-button,
+.help-button,
+.export-button,
+.back-button {
+  position: static;
+  top: unset;
+  left: unset;
+  z-index: unset;
+  box-shadow: none;
+  margin: 0;
+}
+
+.class-node .class-attributes div,
+.class-node .class-methods div {
+  padding: 4px 8px;
+  margin: 2px 0;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.class-node .class-attributes div:hover,
+.class-node .class-methods div:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.relation-panel {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  z-index: 1000;
+  margin-top: 100px;
+}
+
+.relation-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.relation-selector h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.relation-selector select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.relation-selector select:focus {
+  outline: none;
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+.relation-selector option {
+  padding: 8px;
+  font-family: monospace;
+}
+
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  background: #4a9eff !important;
+  border: 2px solid white !important;
+  box-shadow: 0 0 0 1px #4a9eff;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  border-radius: 50% !important;
+}
+
+.class-node:hover .react-flow__handle {
+  opacity: 1;
+}
+
+.react-flow__handle:hover {
+  width: 16px !important;
+  height: 16px !important;
+  background: #357abd !important;
+  cursor: crosshair !important;
+  transform: scale(1.2);
+}
+
+.react-flow__handle.connecting {
+  background: #ff6b6b !important;
+}
+
+.react-flow__connection-path {
+  stroke-width: 2;
+  stroke: #666;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.class-node {
+  background: white;
+  border: 1px solid #1a192b;
+  border-radius: 3px;
+  padding: 10px;
+  min-width: 150px;
+  min-height: 100px;
+  position: relative;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #4a9eff;
+  stroke-width: 3;
+}
+
+/* Ocultar handles superpuestos */
+.connection-handle[data-handleid$="-2"],
+.connection-handle[data-handleid$="-4"] {
+  pointer-events: none;
+}
+
+/* Mostrar handles superpuestos solo cuando se está arrastrando */
+.react-flow__handle-connecting .connection-handle[data-handleid$="-2"],
+.react-flow__handle-connecting .connection-handle[data-handleid$="-4"] {
+  pointer-events: all;
+}
+
+.instructions-panel {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-width: 400px;
+  text-align: left;
+}
+
+.instructions-panel h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.instructions-panel ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.instructions-panel li {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.help-button {
+  top: 20px;
+  left: 180px;
+  z-index: 1000;
+  background-color: var(--morado);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.help-button:hover {
+  background-color: var(--moradoSec);
+}
+
+.help-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.modal-content section {
+  margin: 20px 0;
+}
+
+.modal-content h3 {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.modal-content ul,
+.modal-content ol {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.modal-content li {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.relation-selector select {
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+  margin-top: 8px;
+  border-width: 2px;
+}
+
+.relation-selector option {
+  padding: 8px;
+  font-size: 14px;
+}
+
+/* Estilos para los diferentes tipos de relaciones */
+.inheritance-edge {
+  stroke: #ff3366;
+}
+
+.aggregation-edge {
+  stroke: #33cc33;
+}
+
+.composition-edge {
+  stroke: #9933cc;
+}
+
+.association-edge {
+  stroke: #3366ff;
+}
+
+.react-flow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.react-flow__viewport {
+  width: 100%;
+  height: 100%;
+}
+
+.react-flow__container {
+  width: 100%;
+  height: 100%;
+}
+
+.export-button,
+.export-button {
+  top: 20px;
+  left: 340px;
+  z-index: 1000;
+  background-color: var(--morado);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.export-button:hover {
+  background-color: var(--moradoSec);
+}
+
+.export-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.back-button {
+  top: 20px;
+  left: 500px;
+  z-index: 1000;
+  background-color: var(--morado);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+  background-color: var(--moradoSec);
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.toolbar button {
+  padding: 8px 16px;
+  background-color: var(--morado);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toolbar button:hover {
+  background-color: var(--moradoSec);
+}
+
+.toolbar button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.toolbar select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.toolbar select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.class-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
