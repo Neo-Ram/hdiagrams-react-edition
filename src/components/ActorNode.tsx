@@ -1,6 +1,6 @@
 import { memo, useState, useCallback } from "react";
 import { Handle, Position } from "reactflow";
-
+//maldito
 interface ActorNodeProps {
   data: {
     label: string;
