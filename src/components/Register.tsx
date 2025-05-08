@@ -1,25 +1,42 @@
 import * as UI from "./Inputs";
 import "./Login.css";
 import { useState } from "react";
-import Spinner from "./Spinner";
+import axios from "axios";
 
 const Register = () => {
-  const [loading, setLoading] = useState(false); // Estado de carga, inicialmente falso
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Simulación de un proceso de registro
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Empieza el proceso de carga
-    // Aquí iría la lógica real de registro
-    setTimeout(() => {
-      setLoading(false); // Finaliza la carga después de un tiempo (simulando un proceso)
-      console.log("Registro completado");
-    }, 2000); // Simula un retraso de 2 segundos
+
+    if (password !== confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post('http://localhost:3000/auth/register', {
+        name,
+        email,
+        password,
+      });
+      alert(response.data); // Mensaje del backend
+    } catch (error: any) {
+      alert(error.response?.data?.message || 'Error al registrar');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="fondo">
-      {loading && <Spinner />} {/* Muestra el spinner si está cargando */}
+      {loading && <div>Cargando...</div>}
       <div className="login">
         <form onSubmit={handleRegister} className="login-form2">
           <div className="form-imagen">
@@ -31,28 +48,35 @@ const Register = () => {
               type="text"
               id="name"
               placeholder="Nombre de Usuario"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
             <UI.InputText
               type="email"
               id="email"
-              placeholder="Correo Electronico"
+              placeholder="Correo Electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <UI.InputText
               type="password"
               id="password"
               placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <UI.InputText
               type="password"
               id="confirmPassword"
               placeholder="Confirmar Contraseña"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
             <UI.Button1>Registrarse</UI.Button1>
-            <UI.Button2>Iniciar sesion</UI.Button2>
           </div>
         </form>
       </div>
