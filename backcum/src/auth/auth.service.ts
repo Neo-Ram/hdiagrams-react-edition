@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createClient } from '@supabase/supabase-js';
 import * as bcrypt from 'bcrypt';
 
+
 @Injectable()
 export class AuthService {
   private supabase = createClient(
@@ -21,5 +22,24 @@ export class AuthService {
     }
 
     return 'Usuario registrado exitosamente';
+  }
+
+  async login(email: string, password: string): Promise<{ message: string }> {
+    const { data, error } = await this.supabase
+      .from('users')
+      .select('id, password')
+      .eq('email', email)
+      .single();
+
+    if (error || !data) {
+      return { message: 'Usuario o contraseña incorrectos' };
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, data.password);
+    if (!isPasswordValid) {
+      return { message: 'Usuario o contraseña incorrectos' };
+    }
+
+    return { message: 'Inicio de sesión exitoso' };
   }
 }

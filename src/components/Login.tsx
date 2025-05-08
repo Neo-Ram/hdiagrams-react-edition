@@ -1,5 +1,6 @@
 import * as UI from "./Inputs";
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner"; // Asegúrate de tener esto creado
 import "./Login.css";
@@ -10,10 +11,25 @@ const Login = () => {
   const [loading, setLoading] = useState(true); // cargando al inicio
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password });
-    navigate("/menu");
+    setLoading(true); // muestra spinner al enviar el formulario
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
+      });
+
+      alert(response.data.message); // Muestra el mensaje del backend
+
+      if (response.data.message === "Inicio de sesión exitoso") {
+        navigate("/menu"); // Redirige al menú si el login es exitoso
+      }
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Error al iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

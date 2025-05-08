@@ -11,4 +11,11 @@ export class AuthController {
   ): Promise<string> {
     return this.authService.register(body.name, body.email, body.password);
   }
+
+  @Post('login')
+  async login(
+    @Body() body: { email: string; password: string },
+  ): Promise<{ message: string; token?: string }> {
+    return this.authService.login(body.email, body.password);
+  }
 }
