@@ -18,4 +18,11 @@ export class AuthController {
   ): Promise<{ message: string; token?: string }> {
     return this.authService.login(body.email, body.password);
   }
+
+  //@Post('recover-password')
+  //async recoverPassword(
+  //  @Body() body: { email: string },
+  //): Promise<{ message: string }> {
+  //  return this.authService.recoverPassword(body.email);
+  //}
 }

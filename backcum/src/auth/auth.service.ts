@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { createClient } from '@supabase/supabase-js';
 import * as bcrypt from 'bcrypt';
 
@@ -11,6 +11,17 @@ export class AuthService {
   );
 
   async register(name: string, email: string, password: string): Promise<string> {
+    //Verifica si el usuario ya existe tilin
+    const { data: existingUser } = await this.supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .single();
+
+    if (existingUser) {
+      throw new BadRequestException('El correo ya está registrado');
+    }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const { error } = await this.supabase.from('users').insert([
@@ -18,7 +29,7 @@ export class AuthService {
     ]);
 
     if (error) {
-      throw new Error(`Error al registrar usuario: ${error.message}`);
+      throw new BadRequestException(`Error al registrar usuario: ${error.message}`);
     }
 
     return 'Usuario registrado exitosamente';
@@ -42,4 +53,6 @@ export class AuthService {
 
     return { message: 'Inicio de sesión exitoso' };
   }
+
+  
 }
