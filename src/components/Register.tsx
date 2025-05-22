@@ -3,6 +3,8 @@ import "./Login.css";
 import { useState } from "react";
 import Spinner from "./Spinner"; 
 import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -10,12 +12,13 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      toast.error('Las contraseñas no coinciden');
       return;
     }
 
@@ -27,9 +30,12 @@ const Register = () => {
         email,
         password,
       });
-      alert(response.data); // Mensaje del backend
+      toast.success(response.data); // Mensaje del backend
+      setTimeout(() => {
+        navigate('/login'); // Redirige al login después de registrarse
+      }, 2000);
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Error al registrar');
+      toast.error(error.response?.data?.message || 'Error al registrar');
     } finally {
       setLoading(false);
     }
@@ -37,6 +43,9 @@ const Register = () => {
 
   return (
     <>
+      <div>
+        <Toaster />
+      </div>
       {loading && <Spinner />}
       <div className="fondo" style={{ display: loading ? "none" : "block" }}>
         <div className="login">

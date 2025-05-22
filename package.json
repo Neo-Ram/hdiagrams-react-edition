@@ -16,6 +16,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.5.2",
     "react-router-dom": "^6.21.1",
     "reactflow": "^11.10.1"
   },

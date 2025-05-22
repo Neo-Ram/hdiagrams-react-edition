@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner"; 
 import "./Login.css";
+import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,13 +21,19 @@ const Login = () => {
         password,
       });
 
-      alert(response.data.message); // Muestra el mensaje del backend
+      //toast.error(response.data.message); // Muestra el mensaje del backend
 
       if (response.data.message === "Inicio de sesión exitoso") {
-        navigate("/menu"); // Redirige al menú si el login es exitoso
+        toast.success(response.data.message); // Muestra el mensaje de éxito
+        setTimeout(() => {
+          navigate("/menu"); // Redirige al menú si el login es exitoso
+        }, 2000);
+      } else {
+        toast.error(response.data.message); // Muestra el mensaje de error
       }
+      
     } catch (error: any) {
-      alert(error.response?.data?.message || "Error al iniciar sesión");
+      toast.error(error.response?.data?.message || "Error al iniciar sesión");
     } finally {
       setLoading(false);
     }
@@ -34,6 +41,7 @@ const Login = () => {
 
   return (
     <>
+      <Toaster />
       {loading && <Spinner />}
 
       <div className="fondo" style={{ display: loading ? "none" : "block" }}>
