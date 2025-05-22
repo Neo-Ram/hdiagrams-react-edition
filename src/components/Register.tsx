@@ -1,6 +1,7 @@
 import * as UI from "./Inputs";
 import "./Login.css";
 import { useState } from "react";
+import Spinner from "./Spinner"; 
 import axios from "axios";
 
 const Register = () => {
@@ -35,52 +36,54 @@ const Register = () => {
   };
 
   return (
-    <div className="fondo">
-      {loading && <div>Cargando...</div>}
-      <div className="login">
-        <form onSubmit={handleRegister} className="login-form2">
-          <div className="form-imagen">
-            <img src="/UasLogo.png" alt="" />
-          </div>
-          <div className="yamecanse">
-            <UI.H2>Registrarse</UI.H2>
-            <UI.InputText
-              type="text"
-              id="name"
-              placeholder="Nombre de Usuario"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <UI.InputText
-              type="email"
-              id="email"
-              placeholder="Correo Electrónico"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <UI.InputText
-              type="password"
-              id="password"
-              placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <UI.InputText
-              type="password"
-              id="confirmPassword"
-              placeholder="Confirmar Contraseña"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            <UI.Button1>Registrarse</UI.Button1>
-          </div>
-        </form>
+    <>
+      {loading && <Spinner />}
+      <div className="fondo" style={{ display: loading ? "none" : "block" }}>
+        <div className="login">
+          <form onSubmit={handleRegister} className="login-form2">
+            <div className="form-imagen">
+              <img src="/UasLogo.png" alt="" />
+            </div>
+            <div className="yamecanse">
+              <UI.H2>Registrarse</UI.H2>
+              <UI.InputText
+                type="text"
+                id="name"
+                placeholder="Nombre de Usuario"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <UI.InputText
+                type="email"
+                id="email"
+                placeholder="Correo Electrónico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <UI.InputText
+                type="password"
+                id="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <UI.InputText
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirmar Contraseña"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <UI.Button1>Registrarse</UI.Button1>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import * as UI from "./Inputs";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Spinner from "./Spinner"; // Asegúrate de tener esto creado
+import Spinner from "./Spinner"; 
 import "./Login.css";
 
 const Login = () => {
