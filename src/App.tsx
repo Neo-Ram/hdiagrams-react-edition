@@ -12,6 +12,7 @@ import DClases from "./components/DClases";
 import DCU from "./DCU";
 import DComponetes from "./components/DComponentes";
 import DPaquetes from "./DPaquetes";
+import RecoverPassword from "./components/RecoverPassword";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/DCU" element={<DCU />} />
         <Route path="/DComponentes" element={<DComponetes />} />
         <Route path="/DPaquetes" element={<DPaquetes />} />
+        <Route path="/recover-password" element={<RecoverPassword />} />
       </Routes>
     </Router>
   );

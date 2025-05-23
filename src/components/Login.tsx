@@ -31,7 +31,7 @@ const Login = () => {
       } else {
         toast.error(response.data.message); // Muestra el mensaje de error
       }
-      
+
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Error al iniciar sesión");
     } finally {
@@ -74,7 +74,7 @@ const Login = () => {
               required
             />
             <div className="contraseña">
-              <UI.Button3>Recuperar contraseña</UI.Button3>
+              <UI.Button3 onClick={()=> navigate("/recover-password")}>¿Olvidaste tu contraseña?</UI.Button3>
             </div>
           </div>
 

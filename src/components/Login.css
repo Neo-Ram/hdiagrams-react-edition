@@ -67,3 +67,57 @@
   font-size: 0.8em;
   text-decoration: underline;
 }
+/* Estilo para la contraseña eeeeeeeeeeeee */
+.recover-form {
+  width: 500px;
+  margin: 60px auto;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.recover-form h2 {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.recover-message {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+}
+
+.recover-form input[type="email"] {
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.recover-form button {
+  padding: 10px;
+  background: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recover-form button:hover {
+  background: #003d80;
+}
+
+.recover-form .button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  justify-content: center; /* Centra los botones horizontalmente */
+}
