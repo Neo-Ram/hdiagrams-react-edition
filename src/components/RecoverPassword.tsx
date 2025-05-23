@@ -10,9 +10,6 @@ const RecoverPassword = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Validación simple de correo
-  const isEmailValid = (value: string) => /\S+@\S+\.\S+/.test(value);
-
   const handleRecover = async (e: React.FormEvent) => {
   e.preventDefault();
   setLoading(true);
