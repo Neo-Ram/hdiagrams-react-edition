@@ -74,7 +74,7 @@ const Login = () => {
               required
             />
             <div className="contraseña">
-              <UI.Button3 onClick={()=> navigate("/recover-password")}>¿Olvidaste tu contraseña?</UI.Button3>
+              <UI.Button3 onClick={()=> { setLoading(true); setTimeout(() => navigate("/recover-password"),800); }}>¿Olvidaste tu contraseña?</UI.Button3>
             </div>
           </div>
 

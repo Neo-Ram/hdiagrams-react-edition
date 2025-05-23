@@ -14,21 +14,17 @@ const RecoverPassword = () => {
   const isEmailValid = (value: string) => /\S+@\S+\.\S+/.test(value);
 
   const handleRecover = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isEmailValid(email)) {
-      toast.error("Ingresa un correo válido");
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.post("http://localhost:3000/auth/recover-password", { email });
-      toast.success("Si el correo existe, se enviaron instrucciones.");
-    } catch {
-      toast.error("Hubo un problema. Intenta más tarde.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+  setLoading(true);
+  try {
+    await axios.post("http://localhost:3000/auth/recover-password", { email });
+    toast.success("Si el correo existe, se enviaron instrucciones.");
+  } catch {
+    toast.error("Hubo un problema. Intenta más tarde.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleCancel = () => {
     setLoading(true);
@@ -55,22 +51,19 @@ const RecoverPassword = () => {
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
-          />
-          <div className="button-group">
+            />
+            <div className="button-group">
             <button
-              type="button"
-              className="cancel-btn"
-              onClick={handleCancel}
+                type="button"
+                className="cancel-btn"
+                onClick={handleCancel}
             >
-              Cancelar
+                Cancelar
             </button>
-            <button
-              type="submit"
-              disabled={!isEmailValid(email)}
-            >
-              Recuperar
+            <button type="submit">
+                Recuperar
             </button>
-          </div>
+            </div>
         </form>
       </div>
     </>
