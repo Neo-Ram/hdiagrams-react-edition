@@ -25,4 +25,10 @@ export class AuthController {
   //): Promise<{ message: string }> {
   //  return this.authService.recoverPassword(body.email);
   //}
+  @Post('test-send-reset-email')
+  async testSendResetEmail(@Body('email') email: string) {
+    const token = 'prueba-token-123';
+    await this.authService.sendResetEmail(email, token);
+    return { message: 'Correo de prueba enviado' };
+  }
 }
