@@ -45,37 +45,34 @@ const Menu = () => {
           <Carousel.Item interval={2000}>
             <img
               className="d-block w-100"
-              src="/Diagramas.png"
+              src="/Diagramas-transformed.png"
               alt="First slide"
               onLoad={handleImageLoad} // Llama a la función cuando la imagen se cargue
             />
             <Carousel.Caption>
-              <h3>No me convence Nomar que opinas?</h3>
-              <p>Inserte texto</p>
+              <h3>La mejor herramienta para crear diagramas</h3>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={2000}>
             <img
               className="d-block w-100"
-              src="/Diagramas2.jpg"
+              src="/Diagramas2-transformed.jpeg"
               alt="Second slide"
               onLoad={handleImageLoad}
             />
             <Carousel.Caption>
-              <h3>No me convence nomar que opinas?</h3>
-              <p>Texto de la segunda diapositiva.</p>
+              <h3>O lo mas probable es que no</h3>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={2000}>
             <img
               className="d-block w-100"
-              src="/Diagramas3.jpg"
+              src="/Diagrama3-transformed.jpeg"
               alt="Third slide"
               onLoad={handleImageLoad}
             />
             <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>Texto de la tercera diapositiva.</p>
+              <h3>Pero existe 👍🏼</h3>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
