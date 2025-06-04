@@ -11,7 +11,7 @@
 }
 
 .menu-mitad {
-  padding: 30px;
+  padding: 20px;
   background-color: var(--fondo);
   display: flex;
   flex-direction: column;
@@ -20,7 +20,6 @@
 .menu-mitad h2 {
   text-align: left;
   margin-bottom: 20px;
-  width: 100%;
   padding: 5px 10px;
   border-radius: 8px;
 }
@@ -39,28 +38,28 @@
 }
 
 .cartitas {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  justify-content: center;
   padding: 20px;
+  justify-items: center;
 }
 
 .menu-mitad2 {
-  display: flex;
-  flex-direction: column;
+  margin-top: 40px;
 }
 
 .menu-mitad2 h2 {
   text-align: left;
-  margin-bottom: 30px;
-  width: 100%;
+  margin-bottom: 20px;
   padding: 5px 10px;
   border-radius: 8px;
 }
 
 .micard {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
   padding: 20px;
   border-radius: 10px;
   background-color: var(--Bloques);
@@ -68,7 +67,6 @@
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .micard:hover {
@@ -80,16 +78,22 @@
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 .micard h1 {
   font-size: 1.5rem;
   color: var(--textoPri);
-  margin: 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .micard p {
   color: var(--textoSec);
-  margin-bottom: 15px;
+  margin: 0 0 20px 0;
   flex-grow: 1;
+}
+
+.micard button {
+  margin-top: auto;
+  width: 100%;
 }
