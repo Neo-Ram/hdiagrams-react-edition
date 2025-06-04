@@ -21,9 +21,11 @@ const Login = () => {
         password,
       });
 
-      //toast.error(response.data.message); // Muestra el mensaje del backend
-
       if (response.data.message === "Inicio de sesión exitoso") {
+        // Guardar el nombre del usuario en localStorage
+        if (response.data.name) {
+          localStorage.setItem('userName', response.data.name);
+        }
         toast.success(response.data.message); // Muestra el mensaje de éxito
         setTimeout(() => {
           navigate("/menu"); // Redirige al menú si el login es exitoso

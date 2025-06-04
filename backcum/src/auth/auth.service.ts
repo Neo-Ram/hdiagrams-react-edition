@@ -43,10 +43,10 @@ export class AuthService {
     return 'Usuario registrado exitosamente';
   }
 
-  async login(email: string, password: string): Promise<{ message: string }> {
+  async login(email: string, password: string): Promise<{ message: string; name?: string }> {
     const { data, error } = await this.supabase
       .from('users')
-      .select('id, password')
+      .select('id, password, name')
       .eq('email', email)
       .single();
 
@@ -59,7 +59,7 @@ export class AuthService {
       return { message: 'Usuario o contraseña incorrectos' };
     }
 
-    return { message: 'Inicio de sesión exitoso' };
+    return { message: 'Inicio de sesión exitoso', name: data.name };
   }
   private resend = new Resend(process.env.RESEND_API_KEY || '');
 
