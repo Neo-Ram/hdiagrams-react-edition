@@ -33,4 +33,16 @@ export class ProjectsService {
     }
     return data;
   }
+
+  async deleteProject(projectId: string) {
+    const { error } = await this.supabase
+      .from('projects')
+      .delete()
+      .eq('id', projectId);
+
+    if (error) {
+      throw new BadRequestException(error.message);
+    }
+    return { message: 'Proyecto eliminado correctamente' };
+  }
 }

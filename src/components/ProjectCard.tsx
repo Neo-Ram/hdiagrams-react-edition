@@ -11,12 +11,14 @@ interface ProjectCardProps {
     createdAt: string;
   };
   onClick: () => void;
+  onDelete?: (id: string) => void;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   isNew,
   project,
   onClick,
+  onDelete,
 }) => {
   if (isNew) {
     return (
@@ -39,9 +41,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         onClick={(e) => {
           e.stopPropagation(); // Evita que se dispare el onClick de la tarjeta
           if (window.confirm("¿Seguro que deseas borrar este proyecto?")) {
-            // Llama a la función de borrado (debes pasarla como prop)
-            if (project && typeof (project as any).onDelete === "function") {
-              (project as any).onDelete(project.id);
+            if (onDelete && project) {
+              onDelete(project.id);
             }
           }
         }}

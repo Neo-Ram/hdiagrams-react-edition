@@ -23,34 +23,46 @@ const Menu = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   const fetchProjects = async () => {
-  try {
-    const userId = localStorage.getItem('userId');
-    const response = await axios.get(`http://localhost:3000/projects?user_id=${userId}`);
-    const mappedProjects = response.data.map((project: any) => ({
-      ...project,
-      createdAt: project.created_at,
-    }));
-    setProjects(mappedProjects);
-  } catch (error) {
-    console.error('Error al cargar los proyectos:', error);
-  }
+    try {
+      const userId = localStorage.getItem("userId");
+      const response = await axios.get(
+        `http://localhost:3000/projects?user_id=${userId}`
+      );
+      const mappedProjects = response.data.map((project: any) => ({
+        ...project,
+        createdAt: project.created_at,
+      }));
+      setProjects(mappedProjects);
+    } catch (error) {
+      console.error("Error al cargar los proyectos:", error);
+    }
   };
-//pruebas
+  //pruebas
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const userName = localStorage.getItem('userName');
-    console.log('Menu useEffect', {userName, userId})
+    const userId = localStorage.getItem("userId");
+    const userName = localStorage.getItem("userName");
+    console.log("Menu useEffect", { userName, userId });
     if (!userName) {
-      console.log('Redirigiendo a login porque falta userName');
-      navigate('/login');
+      console.log("Redirigiendo a login porque falta userName");
+      navigate("/login");
       return;
     }
-    
+
     fetchProjects();
   }, [navigate]);
 
   const handleImageLoad = () => {
     setLoading(false);
+  };
+
+  // FUNCIÓN PARA BORRAR PROYECTO
+  const handleDeleteProject = async (projectId: string) => {
+    try {
+      await axios.delete(`http://localhost:3000/projects/${projectId}`);
+      setProjects((prev) => prev.filter((p) => p.id !== projectId));
+    } catch (error) {
+      console.error("Error al borrar el proyecto:", error);
+    }
   };
 
   return (
@@ -100,15 +112,13 @@ const Menu = () => {
           <div className="projects-section">
             <UI.H2>Mis Proyectos</UI.H2>
             <div className="projects-grid">
-              <ProjectCard
-                isNew
-                onClick={() => setShowModal(true)}
-              />
-              {projects.map(project => (
+              <ProjectCard isNew onClick={() => setShowModal(true)} />
+              {projects.map((project) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
                   onClick={() => navigate(`/project/${project.id}`)}
+                  onDelete={handleDeleteProject}
                 />
               ))}
             </div>
