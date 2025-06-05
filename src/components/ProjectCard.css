@@ -1,0 +1,84 @@
+.project-card {
+  background-color: var(--Bloques);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  max-width: 350px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-card h2 {
+  margin: 0 0 10px 0;
+  color: var(--textoPri);
+  font-size: 1.5rem;
+}
+
+.project-card p {
+  color: var(--textoSec);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.new-project {
+  border: 2px dashed var(--gris);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.new-project:hover {
+  border-color: var(--morado);
+  background-color: rgba(43, 43, 43, 0.05);
+}
+
+.add-icon {
+  font-size: 2.5rem;
+  color: var(--morado);
+  margin-bottom: 10px;
+}
+
+.project-meta {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--textoSec);
+}
+
+.diagram-indicators {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.indicator {
+  background-color: var(--morado);
+  color: var(--textoBla);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.indicator.completed {
+  opacity: 1;
+} 
