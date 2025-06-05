@@ -26,6 +26,9 @@ const Login = () => {
         if (response.data.name) {
           localStorage.setItem('userName', response.data.name);
         }
+        if (response.data.id) {
+          localStorage.setItem('userId', response.data.id);
+      }
         toast.success(response.data.message); // Muestra el mensaje de éxito
         setTimeout(() => {
           navigate("/menu"); // Redirige al menú si el login es exitoso

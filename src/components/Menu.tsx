@@ -13,7 +13,7 @@ interface Project {
   id: string;
   name: string;
   description: string;
-  created_at: string;
+  createdAt: string;
 }
 
 const Menu = () => {
@@ -25,7 +25,12 @@ const Menu = () => {
   const fetchProjects = async () => {
     try {
       const response = await axios.get('http://localhost:3000/projects');
-      setProjects(response.data);
+      // Map snake_case to camelCase for createdAt
+      const mappedProjects = response.data.map((project: any) => ({
+        ...project,
+        createdAt: project.created_at,
+      }));
+      setProjects(mappedProjects);
     } catch (error) {
       console.error('Error al cargar los proyectos:', error);
     }

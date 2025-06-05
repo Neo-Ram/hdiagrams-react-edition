@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './CreateProjectModal.css';
 
 interface CreateProjectModalProps {
@@ -10,25 +11,26 @@ const CreateProjectModal: React.FC<CreateProjectModalProps> = ({ onClose }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     try {
-      // Por ahora solo simulamos la creación del proyecto
-      // Aquí después conectaremos con el backend
-      console.log('Creando proyecto:', { name, description });
-      
-      // Simulamos un delay para ver el estado de loading
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Por ahora navegamos a una ruta temporal
+      const response = await axios.post('http://localhost:3000/projects', {
+        name,
+        description,
+        user_id: localStorage.getItem('userId')
+      });
+
       onClose();
-      navigate('/project/1');
+      navigate(`/project/${response.data.id}`);
     } catch (error) {
       console.error('Error al crear el proyecto:', error);
+      setError('Error al crear el proyecto. Por favor, inténtelo de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -41,6 +43,7 @@ const CreateProjectModal: React.FC<CreateProjectModalProps> = ({ onClose }) => {
       <div className="modal-content">
         <h2>Crear Nuevo Proyecto</h2>
         <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
           <div className="form-group">
             <label>Nombre del Proyecto</label>
             <input

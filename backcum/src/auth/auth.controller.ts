@@ -15,7 +15,7 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() body: { email: string; password: string },
-  ): Promise<{ message: string; name?: string }> {
+  ): Promise<{ message: string; name?: string; id?: string }> {
     return this.authService.login(body.email, body.password);
   }
 
