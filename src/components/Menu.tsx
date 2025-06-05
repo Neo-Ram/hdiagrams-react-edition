@@ -23,22 +23,25 @@ const Menu = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   const fetchProjects = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/projects');
-      // Map snake_case to camelCase for createdAt
-      const mappedProjects = response.data.map((project: any) => ({
-        ...project,
-        createdAt: project.created_at,
-      }));
-      setProjects(mappedProjects);
-    } catch (error) {
-      console.error('Error al cargar los proyectos:', error);
-    }
+  try {
+    const userId = localStorage.getItem('userId');
+    const response = await axios.get(`http://localhost:3000/projects?user_id=${userId}`);
+    const mappedProjects = response.data.map((project: any) => ({
+      ...project,
+      createdAt: project.created_at,
+    }));
+    setProjects(mappedProjects);
+  } catch (error) {
+    console.error('Error al cargar los proyectos:', error);
+  }
   };
-
+//pruebas
   useEffect(() => {
+    const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
+    console.log('Menu useEffect', {userName, userId})
     if (!userName) {
+      console.log('Redirigiendo a login porque falta userName');
       navigate('/login');
       return;
     }
