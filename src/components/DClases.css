@@ -127,6 +127,7 @@
   z-index: unset;
   box-shadow: none;
   margin: 0;
+  width: auto;
 }
 
 .class-node .class-attributes div,
@@ -338,9 +339,18 @@
   right: 10px;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 16px;      /* Más pequeño */
   cursor: pointer;
   color: #666;
+  width: 28px;          /* Botón cuadrado */
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;   /* Opcional: círculo */
+  box-shadow: none;     /* Sin sombra */
+  outline: none;
 }
 
 .modal-content h2 {

@@ -440,7 +440,7 @@ const DClases = () => {
   };
 
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
 
   return (

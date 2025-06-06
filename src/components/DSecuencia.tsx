@@ -526,12 +526,15 @@ const SequenceDiagram: React.FC = (): ReactElement => {
       </div>
 
       {showHelp && (
-        <div className="help-modal">
-          <div className="help-content">
-            <h2>Guía de Uso del Editor de Diagramas de Secuencia</h2>
-            <button className="close-button" onClick={() => setShowHelp(false)}>
-              ×
-            </button>
+        <div
+          className="help-modal"
+          onClick={() => setShowHelp(false)} // Cierra al hacer clic en el fondo
+        >
+          <div
+            className="help-content"
+            onClick={(e) => e.stopPropagation()} // No cierra al hacer clic dentro
+          >
+            
             <div className="help-section">
               <h3>Actores</h3>
               <ul>
