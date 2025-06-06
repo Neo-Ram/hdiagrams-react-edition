@@ -33,7 +33,7 @@ const DPaquetes = () => {
 
   // Función para volver al menú
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
 
   // Crear el diagrama solo una vez
