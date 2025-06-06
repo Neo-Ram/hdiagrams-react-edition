@@ -1,0 +1,200 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .App {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .sequence-diagram-editor {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  .sequence-diagram-editor .project-header {
+    text-align: center;
+    margin-bottom: 8px;
+    padding: 8px;
+    margin-top: 30px;
+  }
+
+  .sequence-diagram-editor .project-title {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .sequence-diagram-editor .project-name-input {
+    width: 300px;
+    padding: 6px;
+    font-size: 24px;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+  }
+
+  .sequence-diagram-editor .toolbar {
+    margin-bottom: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sequence-diagram-editor .toolbar button,
+  .sequence-diagram-editor .toolbar select,
+  .sequence-diagram-editor .toolbar label.import-button {
+    margin: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    background-color: var(--morado);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sequence-diagram-editor .toolbar select {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  
+  .sequence-diagram-editor .toolbar select:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .sequence-diagram-editor .toolbar button:hover,
+  .sequence-diagram-editor .toolbar label.import-button:hover {
+    background-color: var(--moradoSec);
+  }
+  
+  .sequence-diagram-editor .toolbar button.active {
+    background-color: var(--moradoSec);
+  }
+
+  .sequence-diagram-editor .message-text {
+    user-select: none;
+    cursor: text;
+  }
+
+  .sequence-diagram-editor .help-button {
+    background-color: #2196F3 !important;
+  }
+
+  .sequence-diagram-editor .help-button:hover {
+    background-color: #1976D2 !important;
+  }
+
+  .sequence-diagram-editor .help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .sequence-diagram-editor .help-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    margin: 20px;
+  }
+
+  .sequence-diagram-editor .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+  }
+
+  .sequence-diagram-editor .help-section {
+    margin-bottom: 20px;
+  }
+
+  .sequence-diagram-editor .help-section h3 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .sequence-diagram-editor .help-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+
+  .sequence-diagram-editor .help-section li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .sequence-diagram-editor svg {
+    flex-grow: 1;
+    min-height: 0;
+    max-width: 100%;
+    max-height: calc(100vh - 200px);
+    overflow: visible;
+  }
+
+  .sequence-diagram-editor .message-types {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+
+  .sequence-diagram-editor .message-types h4 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .sequence-diagram-editor .message-example {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  .sequence-diagram-editor .message-types li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }

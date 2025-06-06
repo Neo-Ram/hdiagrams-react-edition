@@ -1,5 +1,5 @@
 import React, { useState, ReactElement, useEffect } from "react";
-import { useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Actor {
   id: string;
@@ -78,7 +78,9 @@ const MessageStyles = {
 
 const SequenceDiagram: React.FC = (): ReactElement => {
   const navigate = useNavigate();
-  const { /* projectId */} = useParams(); //FUTURO OMAR
+  const {
+    /* projectId */
+  } = useParams(); //FUTURO OMAR
   const [actors, setActors] = useState<Actor[]>(initialActors);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [activations, setActivations] =
@@ -443,7 +445,7 @@ const SequenceDiagram: React.FC = (): ReactElement => {
   };
 
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
 
   return (
@@ -998,6 +1000,7 @@ const SequenceDiagram: React.FC = (): ReactElement => {
 };
 
 // Estilos CSS en línea para la interfaz
+
 const styles = `
   body {
     margin: 0;
@@ -1022,14 +1025,14 @@ const styles = `
     position: relative;
   }
   
-  .project-header {
+  .sequence-diagram-editor .project-header {
     text-align: center;
     margin-bottom: 8px;
     padding: 8px;
     margin-top: 30px;
   }
 
-  .project-title {
+  .sequence-diagram-editor .project-title {
     margin: 0;
     color: #333;
     font-size: 24px;
@@ -1040,7 +1043,7 @@ const styles = `
     display: inline-block;
   }
 
-  .project-name-input {
+  .sequence-diagram-editor .project-name-input {
     width: 300px;
     padding: 6px;
     font-size: 24px;
@@ -1050,7 +1053,7 @@ const styles = `
     outline: none;
   }
 
-  .toolbar {
+  .sequence-diagram-editor .toolbar {
     margin-bottom: 15px;
     text-align: center;
     display: flex;
@@ -1065,50 +1068,56 @@ const styles = `
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .toolbar button, .toolbar select, .toolbar label.import-button {
+  .sequence-diagram-editor .toolbar button,
+  .sequence-diagram-editor .toolbar select,
+  .sequence-diagram-editor .toolbar label.import-button {
     margin: 0;
-    padding: 6px 12px;
-    font-size: 13px;
+    padding: 4px 12px; 
+    font-size: 20px;
     background-color: var(--morado);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
+    min-width: unset;      
+    width: auto;           
+    box-sizing: border-box;
+}
   
-  .toolbar select {
+  .sequence-diagram-editor .toolbar select {
     padding: 6px 8px;
     font-size: 13px;
   }
   
-  .toolbar select:disabled {
+  .sequence-diagram-editor .toolbar select:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
   }
   
-  .toolbar button:hover, .toolbar label.import-button:hover {
+  .sequence-diagram-editor .toolbar button:hover,
+  .sequence-diagram-editor .toolbar label.import-button:hover {
     background-color: var(--moradoSec);
   }
   
-  .toolbar button.active {
+  .sequence-diagram-editor .toolbar button.active {
     background-color: var(--moradoSec);
   }
 
-  .message-text {
+  .sequence-diagram-editor .message-text {
     user-select: none;
     cursor: text;
   }
 
-  .help-button {
+  .sequence-diagram-editor .help-button {
     background-color: #2196F3 !important;
   }
 
-  .help-button:hover {
+  .sequence-diagram-editor .help-button:hover {
     background-color: #1976D2 !important;
   }
 
-  .help-modal {
+  .sequence-diagram-editor .help-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -1122,7 +1131,7 @@ const styles = `
     overflow-y: auto;
   }
 
-  .help-content {
+  .sequence-diagram-editor .help-content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -1133,7 +1142,7 @@ const styles = `
     margin: 20px;
   }
 
-  .close-button {
+  .sequence-diagram-editor .close-button {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -1144,21 +1153,21 @@ const styles = `
     color: #666;
   }
 
-  .help-section {
+  .sequence-diagram-editor .help-section {
     margin-bottom: 20px;
   }
 
-  .help-section h3 {
+  .sequence-diagram-editor .help-section h3 {
     color: #333;
     margin-bottom: 10px;
   }
 
-  .help-section ul {
+  .sequence-diagram-editor .help-section ul {
     list-style-type: disc;
     padding-left: 20px;
   }
 
-  .help-section li {
+  .sequence-diagram-editor .help-section li {
     margin-bottom: 8px;
     line-height: 1.4;
   }
@@ -1171,19 +1180,19 @@ const styles = `
     overflow: visible;
   }
 
-  .message-types {
+  .sequence-diagram-editor .message-types {
     margin-top: 15px;
     padding: 10px;
     background-color: #f5f5f5;
     border-radius: 4px;
   }
 
-  .message-types h4 {
+  .sequence-diagram-editor .message-types h4 {
     margin-top: 0;
     color: #333;
   }
 
-  .message-example {
+  .sequence-diagram-editor .message-example {
     display: inline-block;
     margin-left: 10px;
     padding: 2px 8px;
@@ -1192,7 +1201,7 @@ const styles = `
     font-weight: bold;
   }
 
-  .message-types li {
+  .sequence-diagram-editor .message-types li {
     margin-bottom: 12px;
     line-height: 1.5;
   }
