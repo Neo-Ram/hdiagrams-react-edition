@@ -78,9 +78,7 @@ const MessageStyles = {
 
 const SequenceDiagram: React.FC = (): ReactElement => {
   const navigate = useNavigate();
-  const {
-    /* projectId */
-  } = useParams(); //FUTURO OMAR
+  const { projectId } = useParams<{ projectId?: string }>(); //FUTURO OMAR
   const [actors, setActors] = useState<Actor[]>(initialActors);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [activations, setActivations] =
@@ -408,6 +406,36 @@ const SequenceDiagram: React.FC = (): ReactElement => {
     URL.revokeObjectURL(url);
   };
 
+  const handleSaveDiagram = async () => {
+    const diagramData = {
+      actors,
+      messages,
+      activations,
+      projectName,
+    };
+    try {
+      const response = await fetch("http://localhost:3000/diagrams/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: projectId,
+          json: JSON.stringify(diagramData),
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Diagrama guardado exitosamente!");
+      } else {
+        alert("Error al guardar el diagrama.");
+      }
+    } catch (error) {
+      alert("Error de red al guardar el diagrama.");
+      console.error(error);
+    }
+  };
+
   const handleImportJSON = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -520,6 +548,9 @@ const SequenceDiagram: React.FC = (): ReactElement => {
             style={{ display: "none" }}
           />
         </label>
+        <button className="save-button" onClick={handleSaveDiagram}>
+          💾
+        </button>
         <button onClick={() => setShowHelp(true)} className="help-button">
           Ayuda
         </button>
@@ -534,7 +565,6 @@ const SequenceDiagram: React.FC = (): ReactElement => {
             className="help-content"
             onClick={(e) => e.stopPropagation()} // No cierra al hacer clic dentro
           >
-            
             <div className="help-section">
               <h3>Actores</h3>
               <ul>
