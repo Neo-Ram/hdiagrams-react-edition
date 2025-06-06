@@ -16,7 +16,7 @@ const DComponentes = () => {
 
   // Función para volver al menú
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
 
   // Funciones para añadir elementos a las listas del componente seleccionado
@@ -305,7 +305,7 @@ const DComponentes = () => {
         diagramRef2.current = null;
       }
     };
-  }, [linkType]); // Agregamos linkType como dependencia
+  }, []); // linkType Agregamos linkType como dependencia
 
   // Actualizar el tipo de enlace cuando cambie linkType
   useEffect(() => {
@@ -314,7 +314,7 @@ const DComponentes = () => {
     diagramRef2.current.toolManager.linkingTool.archetypeLinkData = {
       category: linkType,
     };
-    diagramRef2.current.linkTemplate.category = linkType;
+    //diagramRef2.current.linkTemplate.category = linkType;
   }, [linkType]);
 
   const addComponent = () => {
