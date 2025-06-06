@@ -35,7 +35,9 @@ const initialNodes: Node[] = [];
 
 const DCU = () => {
   const navigate = useNavigate();
-  const { /* projectId */ } = useParams(); //FUTURO
+  const {
+    /* projectId */
+  } = useParams(); //FUTURO
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -46,7 +48,7 @@ const DCU = () => {
   const [showHelp, setShowHelp] = useState(false);
 
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
 
   const onConnect = useCallback(
@@ -288,6 +290,8 @@ const DCU = () => {
       }}
     >
       <HelpModal />
+
+      
       <div
         style={{
           padding: "10px",
@@ -301,7 +305,7 @@ const DCU = () => {
         <button
           onClick={handleBack}
           style={{
-            padding: "8px 16px",
+            padding: "6px 8px",
             backgroundColor: "var(--morado)",
             color: "white",
             border: "none",
@@ -310,8 +314,9 @@ const DCU = () => {
             fontSize: "14px",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "4px",
             transition: "all 0.3s ease",
+            width: "80px",
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -388,6 +393,7 @@ const DCU = () => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
+              width: "100px",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -424,6 +430,7 @@ const DCU = () => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
+              width: "140px",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -460,6 +467,7 @@ const DCU = () => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
+              width: "140px",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -485,6 +493,9 @@ const DCU = () => {
           </button>
         </div>
       </div>
+      
+
+
       <div style={{ display: "flex", flex: 1 }}>
         <Sidebar />
         <div ref={reactFlowWrapper} style={{ flex: 1, height: "100%" }}>
