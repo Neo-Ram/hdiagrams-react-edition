@@ -13,6 +13,8 @@ import DCU from "./DCU";
 import DComponetes from "./components/DComponentes";
 import DPaquetes from "./DPaquetes";
 import RecoverPassword from "./components/RecoverPassword";
+import Good from "./components/Good";
+import Bad from "./components/Bad";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/DComponentes" element={<DComponetes />} />
         <Route path="/DPaquetes" element={<DPaquetes />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
+        <Route path="/good" element={<Good />} />
+        <Route path="/bad" element={<Bad />} />
       </Routes>
     </Router>
   );

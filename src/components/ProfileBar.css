@@ -123,3 +123,45 @@
 .file-input {
   display: none;
 } 
+
+.mini-modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 24px;
+  z-index: 2000;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  color: #222 !important;
+}
+.mini-modal input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+}
+.mini-modal button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #2b2b2b;
+  color: #fff;
+  cursor: pointer;
+}
+.mini-modal button[type="button"] {
+  background: #eee;
+  color: #333;
+}
+
+.mini-modal button[type="submit"] {
+  background: #222;
+  color: #fff;
+}
+.mini-modal button[type="submit"]:hover {
+  background: #111;
+}
