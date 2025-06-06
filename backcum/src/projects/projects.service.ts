@@ -45,4 +45,16 @@ export class ProjectsService {
     }
     return { message: 'Proyecto eliminado correctamente' };
   }
+  async getProjectById(projectId: string) {
+    const { data, error } = await this.supabase
+      .from('projects')
+      .select('*')
+      .eq('id', projectId)
+      .single();
+
+    if (error || !data) {
+      throw new BadRequestException(error?.message || 'Proyecto no encontrado');
+    }
+    return data;
+  }
 }

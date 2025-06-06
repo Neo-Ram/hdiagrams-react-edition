@@ -1,11 +1,33 @@
 import { useNavigate, useParams } from "react-router-dom";
-import Card from "./Card"; // o la ruta correcta a tu componente Card
+import Card from "./Card";
+import { useEffect, useState } from "react";
 
 const ProjectDiagrams = () => {
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const [projectName, setProjectName] = useState("Cargando...");
+
+
+  useEffect(() => {
+    // Cambia la URL por la de tu backend real
+    fetch(`http://localhost:3000/projects/${projectId}`)
+      .then((res) => res.json())
+      .then((data) => setProjectName(data.name))
+      .catch(() => setProjectName("Proyecto no encontrado"));
+  }, [projectId]);
 
   return (
+    <div>
+      <div className="project-header" style={{ textAlign: "center", margin: "20px 0" }}>
+        <h2>Proyecto: {projectName}</h2>
+        <button
+          style={{ marginTop: 10 , width:300}}
+          onClick={() => navigate("/menu")}
+        >
+          Volver al Menú Principal
+        </button>
+      </div>
+
     <div className="cartitas">
       <Card
         titulo="Diagrama de Secuencia"
@@ -47,6 +69,7 @@ const ProjectDiagrams = () => {
         id="opcion5-btn"
         onClick={() => navigate(`/project/${projectId}/package`)}
       />
+    </div>
     </div>
   );
 };

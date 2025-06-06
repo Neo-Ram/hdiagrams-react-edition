@@ -35,4 +35,9 @@ export class ProjectsController {
   async deleteProject(@Param('id') id: string) {
     return this.projectsService.deleteProject(id);
   }
+
+  @Get(':id')
+  async getProjectById(@Param('id') id: string) {
+    return this.projectsService.getProjectById(id);
+  }
 }
