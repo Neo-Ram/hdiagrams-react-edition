@@ -1,5 +1,5 @@
 import React, { useState, ReactElement, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 
 interface Actor {
   id: string;
@@ -78,6 +78,7 @@ const MessageStyles = {
 
 const SequenceDiagram: React.FC = (): ReactElement => {
   const navigate = useNavigate();
+  const { /* projectId */} = useParams(); //FUTURO OMAR
   const [actors, setActors] = useState<Actor[]>(initialActors);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [activations, setActivations] =

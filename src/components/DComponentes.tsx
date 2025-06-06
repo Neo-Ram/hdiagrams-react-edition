@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import * as go from "gojs";
 import "./DComponentes.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DComponentes = () => {
   const navigate = useNavigate();
+  const { /* projectId */ } = useParams(); //FUTURO
   const diagramRef = useRef<HTMLDivElement>(null);
   const [componentCounter, setComponentCounter] = useState(1);
   const [selectedComponentKey, setSelectedComponentKey] = useState<

@@ -15,6 +15,8 @@ import DPaquetes from "./DPaquetes";
 import RecoverPassword from "./components/RecoverPassword";
 import Good from "./components/Good";
 import Bad from "./components/Bad";
+import ProjectDiagrams from "./components/ProjectDiagrams";
+
 
 function App() {
   return (
@@ -33,6 +35,12 @@ function App() {
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route path="/good" element={<Good />} />
         <Route path="/bad" element={<Bad />} />
+        <Route path="/project/:projectId" element={<ProjectDiagrams />} />
+        <Route path="/project/:projectId/sequence" element={<DSecuencia />} />
+        <Route path="/project/:projectId/class" element={<DClases />} />
+        <Route path="/project/:projectId/usecase" element={<DCU />} />
+        <Route path="/project/:projectId/component" element={<DComponetes />} />
+        <Route path="/project/:projectId/package" element={<DPaquetes />} />
       </Routes>
     </Router>
   );

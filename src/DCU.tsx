@@ -13,7 +13,7 @@ import ReactFlow, {
   BackgroundVariant,
   ReactFlowInstance,
 } from "reactflow";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "reactflow/dist/style.css";
 import ActorNode from "./components/ActorNode";
 import UseCaseNode from "./components/UseCaseNode";
@@ -35,6 +35,7 @@ const initialNodes: Node[] = [];
 
 const DCU = () => {
   const navigate = useNavigate();
+  const { /* projectId */ } = useParams(); //FUTURO
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);

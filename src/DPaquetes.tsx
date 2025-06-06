@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as go from "gojs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./DPaquetes.css";
 
 interface ContentItem {
@@ -19,6 +19,7 @@ interface PackageData {
 
 const DPaquetes = () => {
   const navigate = useNavigate();
+  const { /* projectId */ } = useParams(); //FUTURO
   const diagramRef = useRef<HTMLDivElement>(null);
   const [packageCounter, setPackageCounter] = useState(1);
   const [actorCounter, setActorCounter] = useState(1);

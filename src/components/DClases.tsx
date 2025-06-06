@@ -15,7 +15,7 @@ import ReactFlow, {
   Position,
   ConnectionMode,
 } from "reactflow";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import "reactflow/dist/style.css";
 import "./DClases.css";
 
@@ -39,6 +39,7 @@ const relationColors = {
 };
 
 const ClassNode: React.FC<NodeProps<ClassNodeData>> = ({ data, id }) => {
+  const { /* projectId */ } = useParams(); //FUTURO
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingAttr, setIsEditingAttr] = useState<number | null>(null);
   const [isEditingMethod, setIsEditingMethod] = useState<number | null>(null);
