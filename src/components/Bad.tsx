@@ -10,6 +10,14 @@ const fireColorsPalette = [
 ];
 
 const Bad = () => {
+
+  useEffect(() => {
+    const audio = new Audio("/ending.mp3");
+    audio.volume = 0.5;
+    audio.play();
+    return () => audio.pause();
+  }, []);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Usamos el ancho de la ventana

@@ -1,6 +1,15 @@
 import "./GoodFireworks.css";
+import { useEffect } from "react";
 
 const Good = () => {
+  useEffect(() => {
+    const audio = new Audio("/goodfinal.mp3"); 
+    audio.volume = 0.5; // opcional: volumen
+    audio.play();
+    // Si quieres que se detenga al salir del componente:
+    return () => audio.pause();
+  }, []);
+
   return (
     <div
       style={{
