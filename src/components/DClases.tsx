@@ -23,6 +23,7 @@ interface ClassNodeData {
   name: string;
   attributes: string[];
   methods: string[];
+  updateNode?: (id: string, data: Partial<ClassNodeData>) => void; //No se si funcione
 }
 
 type RelationType =
@@ -47,16 +48,9 @@ const ClassNode: React.FC<NodeProps<ClassNodeData>> = ({ data, id }) => {
   const [newMethod, setNewMethod] = useState("");
 
   const updateNodeData = (newData: Partial<ClassNodeData>) => {
-    const storedNodes = JSON.parse(
-      localStorage.getItem("diagramNodes") || "[]"
-    );
-    const updatedNodes = storedNodes.map((node: Node) =>
-      node.id === id ? { ...node, data: { ...node.data, ...newData } } : node
-    );
-    localStorage.setItem("diagramNodes", JSON.stringify(updatedNodes));
-    window.dispatchEvent(
-      new CustomEvent("nodesUpdated", { detail: updatedNodes })
-    );
+    if (data.updateNode) {
+      data.updateNode(id, newData);
+    }
   };
 
   const handleNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -338,7 +332,16 @@ const DClases = () => {
   // INICIALIZA VACÍO, SIN LOCALSTORAGE
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  
+
+  const updateNode = (id: string, newData: Partial<ClassNodeData>) => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === id
+          ? { ...node, data: { ...node.data, ...newData, updateNode } }
+          : node
+      )
+    );
+  };
 
   const handleSaveDiagram = async () => {
     const diagramData = {
@@ -390,16 +393,25 @@ const DClases = () => {
         if (data && data.json) {
           try {
             const diagram = JSON.parse(data.json);
-            if (diagram.nodes) setNodes(diagram.nodes);
-            if (diagram.edges) setEdges(diagram.edges);
-          } catch (e) {
-            console.error("Error al parsear el diagrama de clases:", e);
-          }
+            if (diagram.nodes) setNodes(
+            (diagram.nodes as Array<{
+              id: string;
+              type: string;
+              position: { x: number; y: number };
+              data: ClassNodeData;
+            }>).map((n) => ({
+              ...n,
+              data: { ...n.data, updateNode }
+            }))
+            );
+          if (diagram.edges) setEdges(diagram.edges);
+        } catch (e) {
+          console.error("Error al parsear el diagrama de clases:", e);
         }
-      });
-  }, [projectId]);
+      }
+    });
+}, [projectId]);
 
-  
   const [selectedRelationType, setSelectedRelationType] =
     useState<RelationType>("association");
   const [showHelp, setShowHelp] = useState(false);
@@ -448,6 +460,7 @@ const DClases = () => {
         name: "Nueva Clase",
         attributes: [],
         methods: [],
+        updateNode,
       },
     };
     setNodes((nds) => [...nds, newNode]);
