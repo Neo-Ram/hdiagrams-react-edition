@@ -15,7 +15,7 @@ import ReactFlow, {
   Position,
   ConnectionMode,
 } from "reactflow";
-import { useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "reactflow/dist/style.css";
 import "./DClases.css";
 
@@ -39,7 +39,7 @@ const relationColors = {
 };
 
 const ClassNode: React.FC<NodeProps<ClassNodeData>> = ({ data, id }) => {
-  const { /* projectId */ } = useParams(); //FUTURO
+  //const { projectId } = useParams<{ projectId?: string }>();
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingAttr, setIsEditingAttr] = useState<number | null>(null);
   const [isEditingMethod, setIsEditingMethod] = useState<number | null>(null);
@@ -63,6 +63,8 @@ const ClassNode: React.FC<NodeProps<ClassNodeData>> = ({ data, id }) => {
     updateNodeData({ name: e.target.value });
     setIsEditingName(false);
   };
+
+  
 
   const handleAttrBlur = (
     index: number,

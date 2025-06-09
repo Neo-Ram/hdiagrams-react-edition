@@ -109,6 +109,27 @@ const SequenceDiagram: React.FC = (): ReactElement => {
   );
   const [isEditingProjectName, setIsEditingProjectName] = useState(false);
 
+  useEffect(() => {
+    if (!projectId) return;
+    fetch(
+      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=secuencia`
+    )
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.json) {
+          try {
+            const diagram = JSON.parse(data.json);
+            if (diagram.actors) setActors(diagram.actors);
+            if (diagram.messages) setMessages(diagram.messages);
+            if (diagram.activations) setActivations(diagram.activations);
+            if (diagram.projectName) setProjectName(diagram.projectName);
+          } catch (e) {
+            console.error("Error al parsear el diagrama:", e);
+          }
+        }
+      });
+  }, [projectId]);
+
   // Agregar manejador de eventos del teclado
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -422,6 +443,7 @@ const SequenceDiagram: React.FC = (): ReactElement => {
         body: JSON.stringify({
           project_id: projectId,
           json: JSON.stringify(diagramData),
+          type: "secuencia",
         }),
       });
 
