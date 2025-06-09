@@ -77,6 +77,7 @@ const DComponentes = () => {
     });
 }, [projectId, diagramRef2.current]);
 
+
   // Funciones para añadir elementos a las listas del componente seleccionado
   const addToList = (type: "provided" | "required" | "artifact") => {
     if (!diagramRef2.current) return;

@@ -19,7 +19,7 @@ interface PackageData {
 
 const DPaquetes = () => {
   const navigate = useNavigate();
-  const { /* projectId */ } = useParams(); //FUTURO
+  const { projectId } = useParams(); //FUTURO
   const diagramRef = useRef<HTMLDivElement>(null);
   const [packageCounter, setPackageCounter] = useState(1);
   const [actorCounter, setActorCounter] = useState(1);
@@ -34,6 +34,39 @@ const DPaquetes = () => {
   // Función para volver al menú
   const handleBack = () => {
     navigate(-1);
+  };
+
+  // Función para guardar el diagrama
+  const handleSaveDiagram = async () => {
+    if (!projectId) {
+      alert("No hay proyecto seleccionado.");
+      return;
+    }
+    if (!diagramRef2.current) return;
+    const model = diagramRef2.current.model;
+    const jsonStr = model.toJson();
+
+    try {
+      const response = await fetch("http://localhost:3000/diagrams/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: projectId,
+          json: jsonStr,
+          type: "package",
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Diagrama de paquetes guardado exitosamente!");
+      } else {
+        alert("Error al guardar el diagrama de paquetes.");
+      }
+    } catch (error) {
+      alert("Error de red al guardar el diagrama de paquetes.");
+    }
   };
 
   // Crear el diagrama solo una vez
@@ -64,6 +97,27 @@ const DPaquetes = () => {
     }
 
     diagramRef2.current = myDiagram;
+
+    // Cargar el diagrama guardado después de inicializar
+    if (projectId) {
+      console.log("Intentando cargar diagrama para projectId:", projectId);
+      fetch(`http://localhost:3000/diagrams/get?project_id=${projectId}&type=package`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Datos recibidos:", data);
+          if (data && data.json && myDiagram) {
+            try {
+              console.log("Aplicando diagrama:", data.json);
+              myDiagram.model = go.Model.fromJson(data.json);
+            } catch (e) {
+              console.error("Error al cargar el diagrama:", e);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener el diagrama:", error);
+        });
+    }
 
     // Template para los actores
     const actorTemplate = $(
@@ -253,7 +307,7 @@ const DPaquetes = () => {
         diagramRef2.current = null;
       }
     };
-  }, []);
+  }, [projectId]);
 
   const addPackage = () => {
     if (!diagramRef2.current) return;
@@ -438,6 +492,32 @@ const DPaquetes = () => {
           }}
         >
           Rehacer
+        </button>
+        <button
+          onClick={handleSaveDiagram}
+          style={{
+            backgroundColor: "var(--morado)",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            padding: "8px 16px",
+            cursor: "pointer",
+            fontSize: "16px",
+            marginLeft: "8px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            transition: "all 0.3s ease",
+            width: 50,
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--morado)")
+          }
+        >
+          💾
         </button>
         <button onClick={showDiagramJSON}>Ver JSON</button>
       </div>
