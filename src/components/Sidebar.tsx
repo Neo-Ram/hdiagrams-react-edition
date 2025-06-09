@@ -112,7 +112,7 @@ const Sidebar = () => {
             <div
               style={{
                 display: "flex",
-                gap: "3px",
+                gap: "1px",
                 transform: "translateY(-1px)",
               }}
             >
@@ -122,7 +122,7 @@ const Sidebar = () => {
                   width: "2px",
                   height: "30px",
                   backgroundColor: "#0041d0",
-                  transform: "rotate(-15deg)",
+                  transform: "rotate(20deg)",
                   transformOrigin: "top",
                 }}
               />
@@ -132,7 +132,7 @@ const Sidebar = () => {
                   width: "2px",
                   height: "30px",
                   backgroundColor: "#0041d0",
-                  transform: "rotate(15deg)",
+                  transform: "rotate(-20deg)",
                   transformOrigin: "top",
                 }}
               />
