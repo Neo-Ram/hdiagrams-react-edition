@@ -11,7 +11,10 @@ export class DiagramsService {
   async saveDiagram(project_id: number, json: string, type: string) {
     const { error, data } = await this.supabase
       .from('diagrams')
-      .insert([{ project_id, json, type }]);
+      .upsert(
+      [{ project_id, json, type }],
+      { onConflict: 'project_id,type' }
+    );
 
     if (error) {
       throw new BadRequestException(
