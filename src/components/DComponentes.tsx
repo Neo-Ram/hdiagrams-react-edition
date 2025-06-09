@@ -53,21 +53,29 @@ const DComponentes = () => {
 
   //Cargar diagrama al abrir
   useEffect(() => {
-    if (!projectId || !diagramRef2.current) return;
-    fetch(
-      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=component`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.json) {
-          try {
-            diagramRef2.current!.model = go.Model.fromJson(data.json);
-          } catch (e) {
-            alert("Error al cargar el diagrama guardado.");
-          }
+  console.log("useEffect de carga ejecutado");
+  console.log("projectId:", projectId);
+  console.log("diagramRef2.current:", diagramRef2.current);
+  if (!projectId || !diagramRef2.current) return;
+  console.log("Cargando diagrama para projectId:", projectId);
+  fetch(
+    `http://localhost:3000/diagrams/get?project_id=${projectId}&type=component`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Respuesta del backend:", data);
+      if (data && data.json) {
+        try {
+          console.log("JSON recibido:", data.json);
+          diagramRef2.current!.model = go.Model.fromJson(data.json);
+        } catch (e) {
+          alert("Error al cargar el diagrama guardado.");
         }
-      });
-  }, [projectId]);
+      } else {
+        alert("No se encontró un diagrama guardado para este proyecto.");
+      }
+    });
+}, [projectId, diagramRef2.current]);
 
   // Funciones para añadir elementos a las listas del componente seleccionado
   const addToList = (type: "provided" | "required" | "artifact") => {
@@ -109,7 +117,12 @@ const DComponentes = () => {
       "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom,
       "draggingTool.isEnabled": true,
       "linkingTool.isEnabled": true,
-      // No poner background aquí
+      ModelChanged: function(e) {
+        if (e.isTransactionFinished && e.model) {
+          const json = e.model.toJson();
+          localStorage.setItem("tempDiagram", json);
+        }
+      }
     });
 
     // Fondo blanco después de crear el diagrama
@@ -118,6 +131,25 @@ const DComponentes = () => {
     }
 
     diagramRef2.current = myDiagram;
+
+    // Intentar cargar el diagrama guardado después de inicializar
+    if (projectId) {
+      fetch(`http://localhost:3000/diagrams/get?project_id=${projectId}&type=component`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.json && myDiagram) {
+            try {
+              const diagram = data.json;
+              myDiagram.model = go.Model.fromJson(diagram);
+            } catch (e) {
+              console.error("Error al cargar el diagrama:", e);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener el diagrama:", error);
+        });
+    }
 
     // Compartimiento de nombre
     const namePanel = $(
