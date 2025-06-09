@@ -112,7 +112,7 @@ const SequenceDiagram: React.FC = (): ReactElement => {
   useEffect(() => {
     if (!projectId) return;
     fetch(
-      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=secuencia`
+      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=sequence`
     )
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
@@ -443,7 +443,7 @@ const SequenceDiagram: React.FC = (): ReactElement => {
         body: JSON.stringify({
           project_id: projectId,
           json: JSON.stringify(diagramData),
-          type: "secuencia",
+          type: "sequence",
         }),
       });
 
@@ -529,9 +529,7 @@ const SequenceDiagram: React.FC = (): ReactElement => {
         <button className="back-button" onClick={handleBack}>
           Volver al Menú
         </button>
-        <button className="save-button" onClick={() => {}}>
-          Guardar Diagrama
-        </button>
+        
         <button onClick={handleAddActor}>Agregar Actor</button>
         <button
           onClick={() => {
