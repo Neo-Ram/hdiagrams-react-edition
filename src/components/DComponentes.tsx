@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const DComponentes = () => {
   const navigate = useNavigate();
-  const { /* projectId */ } = useParams(); //FUTURO
+  const { projectId } = useParams(); //FUTURO
   const diagramRef = useRef<HTMLDivElement>(null);
   const [componentCounter, setComponentCounter] = useState(1);
   const [selectedComponentKey, setSelectedComponentKey] = useState<
@@ -18,6 +18,56 @@ const DComponentes = () => {
   const handleBack = () => {
     navigate(-1);
   };
+  //Guardar el fuckin diagrama
+  const handleSaveDiagram = async () => {
+    if (!projectId) {
+      alert("No hay proyecto seleccionado.");
+      return;
+    }
+    if (!diagramRef2.current) return;
+    const model = diagramRef2.current.model;
+    const jsonStr = model.toJson();
+
+    try {
+      const response = await fetch("http://localhost:3000/diagrams/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: projectId,
+          json: jsonStr,
+          type: "component",
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Diagrama de componentes guardado exitosamente!");
+      } else {
+        alert("Error al guardar el diagrama de componentes.");
+      }
+    } catch (error) {
+      alert("Error de red al guardar el diagrama de componentes.");
+    }
+  };
+
+  //Cargar diagrama al abrir
+  useEffect(() => {
+    if (!projectId || !diagramRef2.current) return;
+    fetch(
+      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=component`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.json) {
+          try {
+            diagramRef2.current!.model = go.Model.fromJson(data.json);
+          } catch (e) {
+            alert("Error al cargar el diagrama guardado.");
+          }
+        }
+      });
+  }, [projectId]);
 
   // Funciones para añadir elementos a las listas del componente seleccionado
   const addToList = (type: "provided" | "required" | "artifact") => {
@@ -391,6 +441,34 @@ const DComponentes = () => {
           <option value="provided">Provided</option>
           <option value="required">Required</option>
         </select>
+
+        <button
+          onClick={handleSaveDiagram}
+          style={{
+            backgroundColor: "var(--morado)",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            padding: "8px 16px",
+            cursor: "pointer",
+            fontSize: "16px",
+            marginLeft: "8px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            transition: "all 0.3s ease",
+            width: 50,
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--morado)")
+          }
+        >
+          💾
+        </button>
+
         <button onClick={showDiagramJSON} style={{ marginLeft: 16 }}>
           Ver JSON
         </button>
