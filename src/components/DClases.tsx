@@ -15,7 +15,7 @@ import ReactFlow, {
   Position,
   ConnectionMode,
 } from "reactflow";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "reactflow/dist/style.css";
 import "./DClases.css";
 
@@ -23,6 +23,7 @@ interface ClassNodeData {
   name: string;
   attributes: string[];
   methods: string[];
+  updateNode?: (id: string, data: Partial<ClassNodeData>) => void; //No se si funcione
 }
 
 type RelationType =
@@ -39,6 +40,7 @@ const relationColors = {
 };
 
 const ClassNode: React.FC<NodeProps<ClassNodeData>> = ({ data, id }) => {
+  //const { projectId } = useParams<{ projectId?: string }>();
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingAttr, setIsEditingAttr] = useState<number | null>(null);
   const [isEditingMethod, setIsEditingMethod] = useState<number | null>(null);
@@ -46,16 +48,9 @@ const ClassNode: React.FC<NodeProps<ClassNodeData>> = ({ data, id }) => {
   const [newMethod, setNewMethod] = useState("");
 
   const updateNodeData = (newData: Partial<ClassNodeData>) => {
-    const storedNodes = JSON.parse(
-      localStorage.getItem("diagramNodes") || "[]"
-    );
-    const updatedNodes = storedNodes.map((node: Node) =>
-      node.id === id ? { ...node, data: { ...node.data, ...newData } } : node
-    );
-    localStorage.setItem("diagramNodes", JSON.stringify(updatedNodes));
-    window.dispatchEvent(
-      new CustomEvent("nodesUpdated", { detail: updatedNodes })
-    );
+    if (data.updateNode) {
+      data.updateNode(id, newData);
+    }
   };
 
   const handleNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -177,18 +172,7 @@ const nodeTypes: NodeTypes = {
   classNode: ClassNode,
 };
 
-const initialNodes: Node[] = [
-  {
-    id: "1",
-    type: "classNode",
-    position: { x: 250, y: 5 },
-    data: {
-      name: "Clase Ejemplo",
-      attributes: ["- atributo1: string", "- atributo2: number"],
-      methods: ["+ metodo1(): void", "+ metodo2(param: string): number"],
-    },
-  },
-];
+const initialNodes: Node[] = [];
 
 const getRelationStyle = (type: RelationType) => {
   const color = relationColors[type];
@@ -340,25 +324,97 @@ const HelpModal = ({ onClose }: { onClose: () => void }) => (
 
 const DClases = () => {
   const navigate = useNavigate();
-  const [nodes, setNodes, onNodesChange] = useNodesState(
-    JSON.parse(
-      localStorage.getItem("diagramNodes") || JSON.stringify(initialNodes)
+  const { projectId } = useParams<{ projectId?: string }>();
+
+  if (!projectId) {
+    return <div>Error: ID del proyecto no especificado.</div>;
+  }
+  // INICIALIZA VACÍO, SIN LOCALSTORAGE
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+  const updateNode = (id: string, newData: Partial<ClassNodeData>) => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === id
+          ? { ...node, data: { ...node.data, ...newData, updateNode } }
+          : node
+      )
+    );
+  };
+
+  const handleSaveDiagram = async () => {
+    const diagramData = {
+      nodes: nodes.map((node) => ({
+        id: node.id,
+        type: node.type,
+        position: node.position,
+        data: node.data,
+      })),
+      edges: edges.map((edge) => ({
+        id: edge.id,
+        source: edge.source,
+        target: edge.target,
+        type: edge.data?.type,
+        style: edge.style,
+      })),
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/diagrams/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: projectId,
+          json: JSON.stringify(diagramData),
+          type: "class",
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Diagrama de clases guardado exitosamente!");
+      } else {
+        alert("Error al guardar el diagrama de clases.");
+      }
+    } catch (error) {
+      alert("Error de red al guardar el diagrama de clases.");
+    }
+  };
+
+  useEffect(() => {
+    if (!projectId) return;
+    fetch(
+      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=class`
     )
-  );
-  const [edges, setEdges, onEdgesChange] = useEdgesState(
-    JSON.parse(localStorage.getItem("diagramEdges") || "[]")
-  );
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.json) {
+          try {
+            const diagram = JSON.parse(data.json);
+            if (diagram.nodes) setNodes(
+            (diagram.nodes as Array<{
+              id: string;
+              type: string;
+              position: { x: number; y: number };
+              data: ClassNodeData;
+            }>).map((n) => ({
+              ...n,
+              data: { ...n.data, updateNode }
+            }))
+            );
+          if (diagram.edges) setEdges(diagram.edges);
+        } catch (e) {
+          console.error("Error al parsear el diagrama de clases:", e);
+        }
+      }
+    });
+}, [projectId]);
+
   const [selectedRelationType, setSelectedRelationType] =
     useState<RelationType>("association");
   const [showHelp, setShowHelp] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem("diagramNodes", JSON.stringify(nodes));
-  }, [nodes]);
-
-  useEffect(() => {
-    localStorage.setItem("diagramEdges", JSON.stringify(edges));
-  }, [edges]);
 
   useEffect(() => {
     const handleNodesUpdate = (event: CustomEvent) => {
@@ -404,6 +460,7 @@ const DClases = () => {
         name: "Nueva Clase",
         attributes: [],
         methods: [],
+        updateNode,
       },
     };
     setNodes((nds) => [...nds, newNode]);
@@ -439,7 +496,7 @@ const DClases = () => {
   };
 
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
 
   return (
@@ -458,6 +515,9 @@ const DClases = () => {
         <button className="export-button" onClick={exportToJson}>
           <span className="export-icon">↓</span>
           Exportar JSON
+        </button>
+        <button className="save-button" onClick={handleSaveDiagram}>
+          💾
         </button>
       </div>
 

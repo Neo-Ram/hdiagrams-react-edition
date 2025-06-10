@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import * as go from "gojs";
 import "./DComponentes.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DComponentes = () => {
   const navigate = useNavigate();
+  const { projectId } = useParams(); //FUTURO
   const diagramRef = useRef<HTMLDivElement>(null);
   const [componentCounter, setComponentCounter] = useState(1);
   const [selectedComponentKey, setSelectedComponentKey] = useState<
@@ -15,8 +16,67 @@ const DComponentes = () => {
 
   // Función para volver al menú
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
   };
+  //Guardar el fuckin diagrama
+  const handleSaveDiagram = async () => {
+    if (!projectId) {
+      alert("No hay proyecto seleccionado.");
+      return;
+    }
+    if (!diagramRef2.current) return;
+    const model = diagramRef2.current.model;
+    const jsonStr = model.toJson();
+
+    try {
+      const response = await fetch("http://localhost:3000/diagrams/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: projectId,
+          json: jsonStr,
+          type: "component",
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Diagrama de componentes guardado exitosamente!");
+      } else {
+        alert("Error al guardar el diagrama de componentes.");
+      }
+    } catch (error) {
+      alert("Error de red al guardar el diagrama de componentes.");
+    }
+  };
+
+  //Cargar diagrama al abrir
+  useEffect(() => {
+  console.log("useEffect de carga ejecutado");
+  console.log("projectId:", projectId);
+  console.log("diagramRef2.current:", diagramRef2.current);
+  if (!projectId || !diagramRef2.current) return;
+  console.log("Cargando diagrama para projectId:", projectId);
+  fetch(
+    `http://localhost:3000/diagrams/get?project_id=${projectId}&type=component`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Respuesta del backend:", data);
+      if (data && data.json) {
+        try {
+          console.log("JSON recibido:", data.json);
+          diagramRef2.current!.model = go.Model.fromJson(data.json);
+        } catch (e) {
+          alert("Error al cargar el diagrama guardado.");
+        }
+      } else {
+        alert("No se encontró un diagrama guardado para este proyecto.");
+      }
+    });
+}, [projectId, diagramRef2.current]);
+
 
   // Funciones para añadir elementos a las listas del componente seleccionado
   const addToList = (type: "provided" | "required" | "artifact") => {
@@ -58,7 +118,12 @@ const DComponentes = () => {
       "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom,
       "draggingTool.isEnabled": true,
       "linkingTool.isEnabled": true,
-      // No poner background aquí
+      ModelChanged: function(e) {
+        if (e.isTransactionFinished && e.model) {
+          const json = e.model.toJson();
+          localStorage.setItem("tempDiagram", json);
+        }
+      }
     });
 
     // Fondo blanco después de crear el diagrama
@@ -67,6 +132,25 @@ const DComponentes = () => {
     }
 
     diagramRef2.current = myDiagram;
+
+    // Intentar cargar el diagrama guardado después de inicializar
+    if (projectId) {
+      fetch(`http://localhost:3000/diagrams/get?project_id=${projectId}&type=component`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.json && myDiagram) {
+            try {
+              const diagram = data.json;
+              myDiagram.model = go.Model.fromJson(diagram);
+            } catch (e) {
+              console.error("Error al cargar el diagrama:", e);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener el diagrama:", error);
+        });
+    }
 
     // Compartimiento de nombre
     const namePanel = $(
@@ -304,7 +388,7 @@ const DComponentes = () => {
         diagramRef2.current = null;
       }
     };
-  }, [linkType]); // Agregamos linkType como dependencia
+  }, []); // linkType Agregamos linkType como dependencia
 
   // Actualizar el tipo de enlace cuando cambie linkType
   useEffect(() => {
@@ -313,7 +397,7 @@ const DComponentes = () => {
     diagramRef2.current.toolManager.linkingTool.archetypeLinkData = {
       category: linkType,
     };
-    diagramRef2.current.linkTemplate.category = linkType;
+    //diagramRef2.current.linkTemplate.category = linkType;
   }, [linkType]);
 
   const addComponent = () => {
@@ -390,6 +474,34 @@ const DComponentes = () => {
           <option value="provided">Provided</option>
           <option value="required">Required</option>
         </select>
+
+        <button
+          onClick={handleSaveDiagram}
+          style={{
+            backgroundColor: "var(--morado)",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            padding: "8px 16px",
+            cursor: "pointer",
+            fontSize: "16px",
+            marginLeft: "8px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            transition: "all 0.3s ease",
+            width: 50,
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--morado)")
+          }
+        >
+          💾
+        </button>
+
         <button onClick={showDiagramJSON} style={{ marginLeft: 16 }}>
           Ver JSON
         </button>

@@ -1,0 +1,28 @@
+.project-view {
+  padding: 30px;
+}
+
+.project-header {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gris);
+}
+
+.project-header h1 {
+  color: var(--textoPri);
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+.project-header p {
+  color: var(--textoSec);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.diagrams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  justify-items: center;
+} 

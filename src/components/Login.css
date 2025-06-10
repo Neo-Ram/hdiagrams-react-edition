@@ -61,9 +61,89 @@
   justify-content: center;
 }
 .contraseña button {
-  width: 50%;
+  width: auto;
+  background: none !important;
+  color: #0056b3 !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.contraseña button:hover {
+  color: #003d80 !important;
+  background: none !important;
 }
 .contraseña span {
-  font-size: 0.8em;
+  font-size: 0.9em;
   text-decoration: underline;
+}
+/* Estilo para la contraseña eeeeeeeeeeeee */
+.recover-form {
+  width: 500px;
+  margin: 60px auto;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.recover-form h2 {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.recover-message {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+}
+
+.recover-form input[type="email"] {
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.recover-form button {
+  padding: 10px;
+  background: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recover-form button:hover {
+  background: #003d80;
+}
+
+.recover-form .button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  justify-content: center; /* Centra los botones horizontalmente */
+}
+
+.button2 {
+  background: #fafbfd !important; /* blanco */
+  color: #2b2b2b !important;      /* texto oscuro */
+  border: 1px solid #9d9db0 !important;
+}
+
+.button2:hover {
+  background: #e6e7ea !important; /* un blanco más oscuro/gris muy claro */
+  color: #2b2b2b !important;
+  border: 1px solid #9d9db0 !important;
 }

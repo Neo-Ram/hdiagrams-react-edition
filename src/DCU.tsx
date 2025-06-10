@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, DragEvent } from "react";
+import { useState, useCallback, useRef, DragEvent, useEffect } from "react";
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -13,7 +13,7 @@ import ReactFlow, {
   BackgroundVariant,
   ReactFlowInstance,
 } from "reactflow";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "reactflow/dist/style.css";
 import ActorNode from "./components/ActorNode";
 import UseCaseNode from "./components/UseCaseNode";
@@ -35,6 +35,7 @@ const initialNodes: Node[] = [];
 
 const DCU = () => {
   const navigate = useNavigate();
+  const { projectId } = useParams(); //FUTURO
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -45,7 +46,61 @@ const DCU = () => {
   const [showHelp, setShowHelp] = useState(false);
 
   const handleBack = () => {
-    navigate("/menu");
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    if (!projectId) return;
+    fetch(
+      `http://localhost:3000/diagrams/get?project_id=${projectId}&type=usecase`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.json) {
+          try {
+            const diagram = JSON.parse(data.json);
+            if (diagram.nodes) setNodes(diagram.nodes);
+            if (diagram.edges) setEdges(diagram.edges);
+            if (diagram.title) setTitle(diagram.title);
+          } catch (e) {
+            alert("Error al cargar el diagrama guardado.");
+          }
+        }
+      });
+  }, [projectId, setNodes, setEdges, setTitle]);
+
+  const handleSaveDiagram = async () => {
+    if (!projectId) {
+      alert("No hay proyecto seleccionado.");
+      return;
+    }
+    const diagramData = {
+      nodes,
+      edges,
+      title,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/diagrams/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: projectId,
+          json: JSON.stringify(diagramData),
+          type: "usecase",
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Diagrama de casos de uso guardado exitosamente!");
+      } else {
+        alert("Error al guardar el diagrama de casos de uso.");
+      }
+    } catch (error) {
+      alert("Error de red al guardar el diagrama de casos de uso.");
+    }
   };
 
   const onConnect = useCallback(
@@ -287,6 +342,7 @@ const DCU = () => {
       }}
     >
       <HelpModal />
+
       <div
         style={{
           padding: "10px",
@@ -300,7 +356,7 @@ const DCU = () => {
         <button
           onClick={handleBack}
           style={{
-            padding: "8px 16px",
+            padding: "6px 8px",
             backgroundColor: "var(--morado)",
             color: "white",
             border: "none",
@@ -309,8 +365,9 @@ const DCU = () => {
             fontSize: "14px",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "4px",
             transition: "all 0.3s ease",
+            width: "80px",
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -374,6 +431,34 @@ const DCU = () => {
         </div>
         <div style={{ display: "flex", gap: "10px" }}>
           <button
+            className="save-button"
+            onClick={handleSaveDiagram}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "var(--morado)",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "18px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center", // <-- centra el ícono
+              minWidth: "50px", // <-- fuerza el ancho mínimo
+              width: "50px", // <-- fuerza el ancho
+              height: "58px", // <-- iguala la altura de los otros
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--morado)")
+            }
+          >
+            💾
+          </button>
+          <button
             onClick={() => setShowHelp(true)}
             style={{
               padding: "8px 16px",
@@ -387,6 +472,7 @@ const DCU = () => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
+              width: "100px",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -423,6 +509,7 @@ const DCU = () => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
+              width: "140px",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -459,6 +546,7 @@ const DCU = () => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
+              width: "140px",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--moradoSec)")
@@ -484,6 +572,7 @@ const DCU = () => {
           </button>
         </div>
       </div>
+
       <div style={{ display: "flex", flex: 1 }}>
         <Sidebar />
         <div ref={reactFlowWrapper} style={{ flex: 1, height: "100%" }}>

@@ -1,41 +1,116 @@
+.menu-container {
+  margin-left: 250px; /* Mismo ancho que la barra lateral */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
 .menu-mitad {
-  padding: 30px;
+  padding: 20px;
   background-color: var(--fondo);
   display: flex;
   flex-direction: column;
 }
+
 .menu-mitad h2 {
   text-align: left;
   margin-bottom: 20px;
-  width: 100%;
   padding: 5px 10px;
   border-radius: 8px;
 }
+
 .carrusel {
-  padding: 5px;
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  margin-bottom: 40px;
 }
+
 .carrusel img {
-  max-height: 400px; /* ajusta este valor a lo que necesites */
-  object-fit: cover; /* o cover si quieres que se recorte */
-  border-radius: 10px;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.projects-section {
+  padding: 20px;
+}
+
+.projects-section h2 {
+  color: var(--textoPri);
+  margin-bottom: 30px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  padding: 20px;
 }
 
 .cartitas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  gap: 30px;
-  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
 }
 
 .menu-mitad2 {
+  margin-top: 40px;
+}
+
+.menu-mitad2 h2 {
+  text-align: left;
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.micard {
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--Bloques);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
 }
-.menu-mitad2 h2 {
-  text-align: left;
-  margin-bottom: 30px;
+
+.micard:hover {
+  transform: translateY(-5px);
+}
+
+.micard img {
   width: 100%;
-  padding: 5px 10px;
+  height: 150px;
+  object-fit: cover;
   border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.micard h1 {
+  font-size: 1.5rem;
+  color: var(--textoPri);
+  margin: 0 0 10px 0;
+}
+
+.micard p {
+  color: var(--textoSec);
+  margin: 0 0 20px 0;
+  flex-grow: 1;
+}
+
+.micard button {
+  margin-top: auto;
+  width: 100%;
 }

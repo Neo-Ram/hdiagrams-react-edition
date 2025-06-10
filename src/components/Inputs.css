@@ -40,7 +40,7 @@
   transform: scale(0.95);
 }
 .button3 {
-  background: none;
+  background: transparent;
   border: none;
   color: var(--textoSec);
   cursor: pointer;
@@ -49,6 +49,11 @@
   margin: 0;
   width: 100%;
   min-width: 100px;
+  transition: color 0.3s ease;
+}
+
+.button3:hover {
+  color: var(--morado);
 }
 
 .button3-text {
@@ -56,10 +61,6 @@
   transition: border-color 0.3s ease, color 0.3s ease;
   display: inline-block;
   line-height: 1;
-}
-
-.button3:hover .button3-text {
-  border-color: var(--textoSec);
 }
 
 /* Estilos para los inputs */
